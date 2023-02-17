@@ -18,7 +18,7 @@ export default function Home() {
             {`INA Agro-GARLIC (Agroecological Assessment of Land Suitability for Garlic) adalah Sistem Informasi Geografis Kesesuaian Agroekologi untuk Bawang Putih pada kawasan prioritas pengembangan lahan bawang putih di Indonesia.
             Struktur klasifikasi kesesuaian lahan mengikuti kerangka FAO (1976)`}
           </div>
-          <button className="btn btn-accent m-5 px-16"><Link href="#">{`More Info`}</Link></button>
+          <Link href="/about"> <button className="btn btn-accent m-5 px-16">More Info</button></Link>
         </div>
         <img
           src={`./new_garlic.png`}
@@ -54,7 +54,7 @@ export default function Home() {
             Pertanian Badan Penelitian dan Pengembangan Pertanian Balai
             Pengkajian Teknologi Pertanian Jawa Timur, Tahun 2018.`}
           </div>
-          <button className="btn btn-accent m-5 px-16"><Link href="#">{`More Info`}</Link></button>
+          <Link href="/about"> <button className="btn btn-accent m-5 px-16">More Info</button></Link>
         </div>
       </div>
       <Footer />

@@ -5,7 +5,14 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "s1": "#a6e3a1", //hijau
+        "s2": "#f9e2af", //kuning
+        "s3": "#fab387", //orange
+        "n": "#f38ba8", //merah
+      },
+    },
   },
   daisyui: {
     themes: [
