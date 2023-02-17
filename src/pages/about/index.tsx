@@ -16,7 +16,7 @@ const kesesuaianLahan = [
     },
     { 
         kelas: 'Kelas S3', 
-        title: 'Lahan memiliki tingkat kesesuaian di ambang batas atau sesuai marginal untuk penanaman bawang putih',
+        title: 'Lahan hampir tidak sesuai untuk penanaman bawang putih',
         atribut: 'w-96 h-56 bg-s3',
         modal: 'my-modal-3'
     },
