@@ -7,7 +7,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+          href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
           rel="stylesheet"
         />
         <link
