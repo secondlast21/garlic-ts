@@ -11,6 +11,7 @@ module.exports = {
         "s2": "#f9e2af", //kuning
         "s3": "#fab387", //orange
         "n": "#f38ba8", //merah
+        "title": "#40a02b", //hijau
       },
       height: {
         128: "32rem",

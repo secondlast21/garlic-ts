@@ -4,7 +4,7 @@ import logoIpb from "../../../public/logo_ipb.png"
 
 export default function Navbar() {
     return (
-        <header className="sticky top-0 z-50">
+        <header className="sticky top-0 z-50 text-black">
             <div className="navbar bg-base-100 rounded-box">
                 <div className="flex-1 px-2 lg:flex-none">
                     <Image

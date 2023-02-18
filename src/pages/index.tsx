@@ -14,7 +14,7 @@ export default function Home() {
           <div className="text-7xl m-5 font-display font-semibold text-black">
             About INA
           </div>
-          <div className="text-7xl m-5 font-display font-bold text-green-normal">
+          <div className="text-7xl m-5 font-display font-bold text-title">
             Agro-GARLIC
           </div>
           <div className="m-5 font-display text-black text-justify	">
@@ -36,10 +36,10 @@ export default function Home() {
           alt=""
         />
         <div className="container mx-auto pb-40 w-7/12">
-          <div className="text-7xl m-5 font-display font-semibold">
+          <div className="text-7xl m-5 font-display font-semibold text-black">
             About
           </div>
-          <div className="text-7xl m-5 font-display font-bold">
+          <div className="text-7xl m-5 font-display font-bold text-title">
             Bawang Putih
           </div>
           <div className="m-5 font-display text-black text-justify	">
