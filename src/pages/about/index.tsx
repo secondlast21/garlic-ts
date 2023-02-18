@@ -70,7 +70,7 @@ export default function about() {
                                     kerangka FAO (1976) yaitu</p>
                                 <div className="flex flex-row justify-center items-center">
                                     {kesesuaianLahan.map(({ kelas, title, atribut, modal }, idx) => (
-                                        <div className="card card-compact w-80 bg-base-100 shadow-xl m-9">
+                                        <div className="card card-compact w-80 bg-base-100 shadow-xl m-9" key={idx}>
                                             <figure><div className={atribut}></div></figure>
                                             <div className="card-body text-justify">
                                                 <h2 className="card-title font-bold">{kelas}</h2>
@@ -92,7 +92,7 @@ export default function about() {
                                 </div>
                                 <div className="flex flex-row justify-center items-center">
                                     {variabelSyaratTumbuh.map(({ modal, variabel }, idx) => (
-                                        <div className="card card-compact card-side w-80 bg-base-100 shadow-xl m-9">
+                                        <div className="card card-compact card-side w-80 bg-base-100 shadow-xl m-9" key={idx}>
                                             <div className="card-body">
                                                 <h2 className="card-title font-bold mb-3 text-justify">{variabel}</h2>
                                                 <div className="card-actions justify-end">
