@@ -1,6 +1,9 @@
 import Navbar from "@/components/navbar/Navbar"
 import Footer from "@/components/footer/Footer"
 import Link from "next/link"
+import Image from "next/image"
+import garlic from "../../public/new_garlic.png"
+import garlic2 from "../../public/new_garlic_2.png"
 
 export default function Home() {
   return (
@@ -20,16 +23,16 @@ export default function Home() {
           </div>
           <Link href="/about"> <button className="btn btn-accent m-5 px-16">More Info</button></Link>
         </div>
-        <img
-          src={`./new_garlic.png`}
-          className="h-100 w-100 right-0 mx-auto bg-white"
+        <Image
+          src={garlic}
+          className=" w-128 h-128 right-0 mx-auto bg-white"
           alt=""
         />
       </div>
       <div className="flex flex-wrap pt-40 mx-5">
-        <img
-          src={`./new_garlic.png`}
-          className="h-100 w-100 right-0 mx-auto bg-white"
+        <Image
+          src={garlic2}
+          className="w-128 h-128 right-0 mx-auto bg-white"
           alt=""
         />
         <div className="container mx-auto pb-40 w-7/12">

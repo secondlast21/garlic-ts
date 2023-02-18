@@ -12,6 +12,12 @@ module.exports = {
         "s3": "#fab387", //orange
         "n": "#f38ba8", //merah
       },
+      height: {
+        128: "32rem",
+      },
+      width: {
+        128: "32rem",
+      },
     },
   },
   daisyui: {

@@ -1,5 +1,7 @@
 import Head from "next/head"
 import Navbar from "@/components/navbar/Navbar"
+import Image from "next/image"
+import garlics from "../../../public/garlics.png"
 
 const kesesuaianLahan = [
     { 
@@ -46,7 +48,11 @@ export default function about() {
                 <main>
                     <div className="flex-grow bg-white">
                         <div className="p-4 mt-24">
-                            <img src="/garlics.png" className="mx-auto w-128" alt="" />
+                            <Image
+                                src={garlics}
+                                className="mx-auto w-128"
+                                alt=""
+                            />
                             <div className="mx-16 mt-16 mb-8 text-5xl font-bold text-center text-black">
                                     Apa itu INA Agro-GARLIC
                             </div>
