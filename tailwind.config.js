@@ -7,11 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "s1": "#a6e3a1", //hijau
-        "s2": "#f9e2af", //kuning
-        "s3": "#fab387", //orange
-        "n": "#f38ba8", //merah
+        "s1": "#a6e3a1", //hijau mocca
+        "s2": "#f9e2af", //kuning mocca
+        "s3": "#fab387", //orange mocca
+        "n": "#f38ba8", //merah mocca
         "title": "#40a02b", //hijau
+        "pfp": "#f7f7f7", //abu
       },
       height: {
         128: "32rem",

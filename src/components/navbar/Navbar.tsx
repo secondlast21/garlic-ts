@@ -1,11 +1,36 @@
 import Link from "next/link"
 import Image from "next/image"
 import logoIpb from "../../../public/logo_ipb.png"
+import { getTokenFromLocalStorage } from "@/utils/tokenManager"
+import { removeTokenFromLocalStorage } from "@/utils/tokenManager"
+import { useEffect } from "react"
+import { useState } from "react"
+import { useRouter } from "next/router"
 
 export default function Navbar() {
+    const [isTokenExisted, setIsTokenExisted] = useState(false)
+    useEffect(() => {
+        const token = getTokenFromLocalStorage()
+        if (token) {
+            setIsTokenExisted(true)
+        } else {
+            setIsTokenExisted(false)
+        }
+    }, [])
+
+    const AuthFeature = () => {
+        return (
+            <>
+                <Link href="#" className="btn btn-ghost rounded-btn">Penilaian Kesesuaian Lahan</Link>
+                <Link href="#" className="btn btn-ghost rounded-btn">Download File</Link>
+                <Link href="#" className="btn btn-ghost rounded-btn">Input File</Link>
+            </>
+        )
+    }
+
     return (
         <header className="sticky top-0 z-50 text-black">
-            <div className="navbar bg-base-100 rounded-box">
+            <div className="navbar bg-base-100">
                 <div className="flex-1 px-2 lg:flex-none">
                     <Image
                         src={logoIpb}
@@ -28,9 +53,19 @@ export default function Navbar() {
                                 <li><Link href="/peta-kesesuaian-pengguna">Data Pengguna</Link></li>
                             </ul>
                         </div>
-                        <Link href="#" className="btn btn-ghost rounded-btn">Penilaian Kesesuaian Lahan</Link>
+                        <div className="flex-grow"></div>
+                        {(isTokenExisted) && <AuthFeature />}
                         <Link href="#" className="btn btn-ghost rounded-btn">Glosarium</Link>
-                        <Link href="#" className="btn btn-accent rounded-full">Login</Link>
+                        {!isTokenExisted ? (
+                            <Link href="/login" className="btn btn-ghost rounded-btn text-title">Login</Link>
+                        ) : (
+                            <Link href="/profile" className="btn btn-ghost rounded-btn">
+                                <div className="avatar">
+                                    <div className="w-8 h-8 rounded-full bg-s1">
+                                    </div>
+                                </div>
+                            </Link>
+                        )}
                     </div>
                 </div>
             </div>
