@@ -7,6 +7,7 @@ import { useState } from "react";
 import { TLogin, login } from "@/services/authService";
 import { setTokenInLocalStorage } from "@/utils/tokenManager";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const styles = {
     label: "block text-black text-sm font-bold pt-2 pb-1",
@@ -41,7 +42,7 @@ export default function LoginForm() {
     });
 
     return (
-        <div className="min-h-screen font-display flex bg-accent items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen font-display flex bg-accent items-center justify-center px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
                 <div>
                     <Image
@@ -94,7 +95,8 @@ export default function LoginForm() {
                                     className={styles.errorMsg}
                                     name="password"
                                 />
-                                <div className="m-8">
+                                <div className="m-8 text-center">
+                                    <p>Belum punya akun? <Link href="/register" className="text-title">Register</Link></p>
                                     <button type="submit" className="btn btn-accent w-full flex justify-center py-2 px-4">
                                         Login
                                     </button>
