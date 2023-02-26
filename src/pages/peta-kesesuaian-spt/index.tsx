@@ -1,16 +1,15 @@
-import Navbar from "@/components/navbar/Navbar"
-import dynamic from 'next/dynamic';
+import NavbarMap from "@/components/navbar/NavbarMap";
+import dynamic from "next/dynamic";
 
-
-const Map = dynamic(import('../../components/MapSPT'), {
+const Map = dynamic(import("../../components/MapSPT"), {
   ssr: false,
 });
 
 export default function Index() {
   return (
     <>
-        <Navbar />
-        <Map />
+      <NavbarMap />
+      <Map />
     </>
-   )
+  );
 }

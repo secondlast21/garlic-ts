@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-export default function Navbar() {
+export default function NavbarMap() {
   const [isTokenExisted, setIsTokenExisted] = useState(false);
   useEffect(() => {
     const token = getTokenFromLocalStorage();
@@ -35,7 +35,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed w-full top-0 z-50 text-black">
+    <header className="sticky w-full top-0 z-50 text-black">
       <div className="navbar bg-base-100">
         <div className="flex-1 px-2 lg:flex-none">
           <Image

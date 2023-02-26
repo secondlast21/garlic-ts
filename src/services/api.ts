@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from 'axios'
-import { getTokenFromLocalStorage, removeTokenFromLocalStorage } from '../utils/tokenManager'
+import { getTokenFromLocalStorage, removeTokenFromLocalStorage } from '@/utils/tokenManager'
 
 const api = axios.create({
     baseURL: 'https://garlic.cryptbrn.my.id/api/v2',
