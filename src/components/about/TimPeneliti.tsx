@@ -5,39 +5,9 @@ import buAnnisa from "../../../public/bu_annisa.png";
 import paAsyhar from "../../../public/pa_asyhar.png";
 import ojan from "../../../public/ojan.png";
 import reja from "../../../public/reja.png";
-
-const paraPeneliti = [
-  {
-    name: "Prof. Dr. Imas Sukaesih Sitanggang, S.Si, M.Kom",
-    role: "Peneliti",
-    image: { buImas },
-  },
-  {
-    name: "Prof. Dr. Ir. Sobir, M.Si",
-    role: "Peneliti",
-    image: { profSobir },
-  },
-  {
-    name: "Prof. Dr. Imas Sukaesih Sitanggang, S.Si, M.Kom",
-    role: "Peneliti",
-    image: { buImas },
-  },
-  {
-    name: "Prof. Dr. Imas Sukaesih Sitanggang, S.Si, M.Kom",
-    role: "Peneliti",
-    image: { buImas },
-  },
-  {
-    name: "Prof. Dr. Imas Sukaesih Sitanggang, S.Si, M.Kom",
-    role: "Peneliti",
-    image: { buImas },
-  },
-  {
-    name: "Prof. Dr. Imas Sukaesih Sitanggang, S.Si, M.Kom",
-    role: "Peneliti",
-    image: { buImas },
-  },
-];
+import putuReyhan from "../../../public/putuReyhan.jpeg";
+import reyhan from "../../../public/muhammad_reyhan.png";
+import faris from "../../../public/faris_ilham.jpg";
 
 export default function TimPeneliti() {
   return (
@@ -88,6 +58,23 @@ export default function TimPeneliti() {
                 name="Reza Achmad Naufal"
                 role="Peneliti"
                 image={reja}
+              />
+            </div>
+            <div className="flex justify-center">
+              <Peneliti
+                name="Muhammad Reyhan & I Dewa Semadi"
+                role="Peneliti"
+                image={putuReyhan}
+              />
+            </div>
+            <div className="flex justify-center">
+              <Peneliti name="Muhammad Reyhan" role="Peneliti" image={reyhan} />
+            </div>
+            <div className="flex justify-center">
+              <Peneliti
+                name="Faris Ilham Noormandiri"
+                role="Peneliti"
+                image={faris}
               />
             </div>
           </div>
