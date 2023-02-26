@@ -85,7 +85,7 @@ export default function Navbar() {
             </div>
             <div className="flex-grow"></div>
             {isTokenExisted && <AuthFeature />}
-            <Link href="#" className="btn btn-ghost rounded-btn">
+            <Link href="/glosarium" className="btn btn-ghost rounded-btn">
               Glosarium
             </Link>
             {!isTokenExisted ? (

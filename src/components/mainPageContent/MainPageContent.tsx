@@ -2,10 +2,15 @@ import Link from "next/link";
 import Image from "next/image";
 import garlic from "../../../public/new_garlic.png";
 import garlic2 from "../../../public/new_garlic_2.png";
+import Head from "next/head";
 
 export default function MainPageContent() {
   return (
     <>
+      <Head>
+        <title>INA Agro-GARLIC</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className="flex flex-wrap pt-64 mx-8">
         <div className="container mx-auto pb-40 w-7/12">
           <div className="text-7xl m-5 font-display font-semibold text-black">

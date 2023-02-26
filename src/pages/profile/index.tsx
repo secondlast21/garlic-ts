@@ -37,8 +37,8 @@ export default function Profile() {
         <div className="flex flex-1 overflow-hidden">
           <div className="flex flex-1 flex-col ">
             <div className="flex-grow  overflow-y-auto paragraph">
-              <main>
-                <div className="container mx-auto mt-48 w-1/2">
+              <main className="">
+                <div className="container mx-auto mt-48 w-1/2 border-solid border-4 border-accent rounded-md">
                   <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                     <div className="flex">
                       <div className="flex-grow px-4 py-5 sm:px-6">

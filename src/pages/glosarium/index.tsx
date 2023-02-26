@@ -1,8 +1,8 @@
-import RegisterForm from "@/components/registerForm/RegisterForm";
+import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/navbar/Navbar";
 import Head from "next/head";
 
-export default function Index() {
+export default function glosarium() {
   return (
     <div>
       <Head>
@@ -10,7 +10,9 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <RegisterForm />
+      <h1>Ini Halaman Glosarium</h1>
+      <p>Testestes</p>
+      <Footer />
     </div>
   );
 }
