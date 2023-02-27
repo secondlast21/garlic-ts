@@ -38,7 +38,7 @@ export default function Profile() {
           <div className="flex flex-1 flex-col ">
             <div className="flex-grow  overflow-y-auto paragraph">
               <main className="">
-                <div className="container mx-auto mt-48 w-1/2 border-solid border-4 border-accent rounded-md">
+                <div className="container mx-auto mt-24 w-1/2 border-solid border-4 border-accent rounded-md">
                   <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                     <div className="flex">
                       <div className="flex-grow px-4 py-5 sm:px-6">
@@ -81,7 +81,23 @@ export default function Profile() {
                         </div>
                         <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                           <dt className="text-sm font-medium text-gray-900">
-                            Alamat
+                            Pekerjaan
+                          </dt>
+                          <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {data?.data.profession}
+                          </dd>
+                        </div>
+                        <div className="bg-accent px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                          <dt className="text-sm font-medium text-gray-900">
+                            Nama Institusi
+                          </dt>
+                          <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {data?.data.institution.name}
+                          </dd>
+                        </div>
+                        <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                          <dt className="text-sm font-medium text-gray-900">
+                            Alamat Institusi
                           </dt>
                           <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {data?.data.institution.address}

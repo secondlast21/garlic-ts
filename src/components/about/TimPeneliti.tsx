@@ -62,7 +62,7 @@ export default function TimPeneliti() {
             </div>
             <div className="flex justify-center">
               <Peneliti
-                name="Muhammad Reyhan & I Dewa Semadi"
+                name="I Dewa Putu Semadi"
                 role="Peneliti"
                 image={putuReyhan}
               />
