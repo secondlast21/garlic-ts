@@ -1,6 +1,7 @@
-import { Html, Head, Main, NextScript } from 'next/document'
-import CardKesesuaianLahan from '@/components/cardKesesuaianLahan/CardKesesuaianLahan'
-import CardSyaratTumbuh from '@/components/cardSyaratTumbuh/CardSyaratTumbuh'
+/* eslint-disable @next/next/no-sync-scripts */
+import { Html, Head, Main, NextScript } from "next/document";
+import CardKesesuaianLahan from "@/components/cardKesesuaianLahan/CardKesesuaianLahan";
+import CardSyaratTumbuh from "@/components/cardSyaratTumbuh/CardSyaratTumbuh";
 
 export default function Document() {
   return (
@@ -22,5 +23,5 @@ export default function Document() {
         <CardSyaratTumbuh />
       </body>
     </Html>
-  )
+  );
 }

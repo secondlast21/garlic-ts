@@ -103,25 +103,14 @@ export default function Profile() {
                             {data?.data.institution.address}
                           </dd>
                         </div>
-                        <div className="bg-accent px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                          <dt className="text-sm font-medium text-gray-900">
-                            Kebutuhan
-                          </dt>
-                          <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {data?.data.need}
-                          </dd>
-                        </div>
                       </dl>
-                      <div className="flex m-4">
-                        <div className="flex-grow"> </div>
-                        <div className="flex-none">
-                          <button
-                            className="btn btn-ghost rounded-btn text-title"
-                            onClick={handleClick}
-                          >
-                            Logout
-                          </button>
-                        </div>
+                      <div className="m-4">
+                        <button
+                          className="btn btn-ghost rounded-btn text-title"
+                          onClick={handleClick}
+                        >
+                          Logout
+                        </button>
                       </div>
                     </div>
                   </div>

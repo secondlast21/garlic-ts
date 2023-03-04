@@ -8,6 +8,7 @@ import reja from "../../../public/reja.png";
 import putuReyhan from "../../../public/putuReyhan.jpeg";
 import reyhan from "../../../public/muhammad_reyhan.png";
 import faris from "../../../public/faris_ilham.jpg";
+import dewa from "../../../public/dewa_semadi.jpg";
 
 export default function TimPeneliti() {
   return (
@@ -64,7 +65,7 @@ export default function TimPeneliti() {
               <Peneliti
                 name="I Dewa Putu Semadi"
                 role="Peneliti"
-                image={putuReyhan}
+                image={dewa}
               />
             </div>
             <div className="flex justify-center">

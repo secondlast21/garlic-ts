@@ -18,4 +18,4 @@ export interface TGetInstitution extends TPostInstitution {
 }
 
 export const getInstitution = async (): Promise<BaseResponse> =>
-  await api.get("/user/institution");
+  await api.get("/user/institution?isActive=true");

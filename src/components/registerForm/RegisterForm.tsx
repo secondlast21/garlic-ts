@@ -84,13 +84,18 @@ export default function RegisterForm() {
               }}
               validationSchema={registerSchema}
               onSubmit={(values: TRegister) => {
+                console.log(selectedInstitution);
+                handleSubmit(values);
+                values.institutionId = values.institutionList;
+                values.institutionList = "";
+                if (isChecked) {
+                  values.institutionId = "";
+                }
                 if (isFetched) {
                   selectedInstitution = data?.data.find(
                     (item) => item.id === values.institutionList
                   );
                 }
-                console.log(selectedInstitution);
-                handleSubmit(values);
                 console.log(values);
               }}
             >
@@ -195,7 +200,9 @@ export default function RegisterForm() {
                     className={styles.field}
                     as="select"
                     name="institutionList"
+                    disabled={isChecked}
                   >
+                    <option value="default">-- Pilih Institusi --</option>
                     {isFetched &&
                       data?.data.map((institution, idx) => (
                         <option value={institution.id} key={idx}>
