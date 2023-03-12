@@ -43,73 +43,73 @@ export default function LoginForm() {
 
   return (
     <div className="min-h-screen font-display flex bg-accent items-center justify-center w-full px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <Image src={logoIpb} className=" w-36 right-0 mx-auto" alt="" />
-          <h3 className="mt-6 text-center text-3xl font-bold text-black">
-            Masuk Akun INA-Agro Garlic
-          </h3>
-        </div>
-        <div className="flex-grow rounded-xl bg-white p-8 flex items-center justify-center">
-          <Formik
-            initialValues={{
-              email: "",
-              password: "",
-            }}
-            validationSchema={loginSchema}
-            onSubmit={(values: TLogin) => {
-              handleSubmit(values);
-            }}
-          >
-            <Form>
-              <div className="form-control w-full max-w-xs">
-                <label className="label">
-                  <span className="label-text font-bold">Email</span>
-                </label>
-                <Field
-                  className="input input-bordered w-full max-w-xs"
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Masukkan email"
-                />
-                <ErrorMessage
-                  component="a"
-                  className={styles.errorMsg}
-                  name="email"
-                />
-                <label className="label">
-                  <span className="label-text font-bold">Password</span>
-                </label>
-                <Field
-                  className="input input-bordered w-full max-w-xs"
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="Masukkan password"
-                />
-                <ErrorMessage
-                  component="a"
-                  className={styles.errorMsg}
-                  name="password"
-                />
-                <div className="m-8 text-center">
-                  <p>
-                    Belum punya akun?{" "}
-                    <Link href="/register" className="text-title">
-                      Register
-                    </Link>
-                  </p>
-                  <button
-                    type="submit"
-                    className="btn btn-accent w-full flex justify-center py-2 px-4"
-                  >
-                    Login
-                  </button>
+      <div className="card w-fit bg-base-100 shadow-xl">
+        <figure className="px-10 pt-10">
+          <Image src={logoIpb} className=" w-36 mx-auto" alt="" />
+        </figure>
+        <div className="card-body items-center text-center">
+          <h2 className="card-title">Masuk Akun INA-Agro Garlic</h2>
+          <div className="flex-grow rounded-xl bg-white p-8 flex items-center justify-center">
+            <Formik
+              initialValues={{
+                email: "",
+                password: "",
+              }}
+              validationSchema={loginSchema}
+              onSubmit={(values: TLogin) => {
+                handleSubmit(values);
+              }}
+            >
+              <Form>
+                <div className="form-control w-full max-w-xs">
+                  <label className="label">
+                    <span className="label-text font-bold">Email</span>
+                  </label>
+                  <Field
+                    className="input input-bordered w-full max-w-xs"
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Masukkan email"
+                  />
+                  <ErrorMessage
+                    component="a"
+                    className={styles.errorMsg}
+                    name="email"
+                  />
+                  <label className="label">
+                    <span className="label-text font-bold">Password</span>
+                  </label>
+                  <Field
+                    className="input input-bordered w-full max-w-xs"
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Masukkan password"
+                  />
+                  <ErrorMessage
+                    component="a"
+                    className={styles.errorMsg}
+                    name="password"
+                  />
+                  <div className="m-8 text-center">
+                    <p>
+                      Belum punya akun?{" "}
+                      <Link href="/register" className="text-title">
+                        Register
+                      </Link>
+                    </p>
+                    <button
+                      type="submit"
+                      className="btn btn-accent w-full flex justify-center py-2 px-4"
+                    >
+                      Login
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </Form>
-          </Formik>
+              </Form>
+            </Formik>
+          </div>
         </div>
       </div>
     </div>

@@ -21,7 +21,10 @@ export default function Navbar() {
   const AuthFeature = () => {
     return (
       <>
-        <Link href="#" className="btn btn-ghost rounded-btn">
+        <Link
+          href="/penilaian-kesesuaian-lahan"
+          className="btn btn-ghost rounded-btn"
+        >
           Penilaian Kesesuaian Lahan
         </Link>
         <Link href="#" className="btn btn-ghost rounded-btn">

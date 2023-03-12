@@ -13,7 +13,6 @@ export default function Login() {
       </Head>
       <Navbar />
       <div className="flex items-center justify-center">
-        <LoginWelcome />
         <LoginForm />
       </div>
     </div>
