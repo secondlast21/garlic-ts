@@ -40,6 +40,8 @@ export default function Index() {
     }
   }, [isFetchedLand]);
 
+  console.log(coordinates);
+
   // if (isFetchedLand) {
   //   console.log("Ini Land");
   //   console.log(dataLand);

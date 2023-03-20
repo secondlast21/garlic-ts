@@ -21,13 +21,16 @@ export default function NavbarMap() {
   const AuthFeature = () => {
     return (
       <>
-        <Link href="#" className="btn btn-ghost rounded-btn">
+        <Link
+          href="/penilaian-kesesuaian-lahan"
+          className="btn btn-ghost rounded-btn"
+        >
           Penilaian Kesesuaian Lahan
         </Link>
-        <Link href="#" className="btn btn-ghost rounded-btn">
+        <Link href="/download-file" className="btn btn-ghost rounded-btn">
           Download File
         </Link>
-        <Link href="#" className="btn btn-ghost rounded-btn">
+        <Link href="/input-file" className="btn btn-ghost rounded-btn">
           Input File
         </Link>
       </>
