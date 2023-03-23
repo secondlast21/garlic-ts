@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, useFormik } from "formik";
 import { postFile } from "@/services/inputService";
 import { useMutation } from "react-query";
+import Link from "next/link";
+import Swal from "sweetalert2";
 
 const initialValues = {
   provinceName: "",
@@ -18,11 +20,27 @@ const initialValues = {
 const FormikInput = () => {
   const { mutate, reset } = useMutation(postFile, {
     onSuccess: (data) => {
+      Swal.fire({
+        title: "Berhasil!",
+        text: "File anda berhasil diupload!",
+        icon: "success",
+        confirmButtonColor: "#10a063",
+        confirmButtonText: "OK",
+      });
       console.log(data?.message);
       reset();
     },
     onError: (error) => {
       setErrorMessage(error?.message);
+      Swal.fire({
+        title: "Gagal!",
+        text: "File anda gagal diupload!",
+        icon: "error",
+        confirmButtonColor: "#ce5050",
+        confirmButtonText: "OK",
+      });
+      console.log(data?.message);
+      reset();
     },
   });
 
@@ -71,15 +89,7 @@ function UploadFile({ values, setFieldValue }) {
   ]);
   const [selectedProvince, setSelectedProvince] = useState(null);
   const [kabupaten, setKabupaten] = useState([{ name: "empty" }]);
-  const [kecamatan, setKecamatan] = useState([{ name: "empty" }]);
-  const [kelurahan, setKelurahan] = useState([
-    {
-      name: "empty",
-    },
-  ]);
   const [selectedKabupaten, setSelectedKabupaten] = useState(null);
-  const [selectedKecamatan, setSelectedKecamatan] = useState(null);
-  const [selectedKelurahan, setSelectedKelurahan] = useState(null);
   const [provinceName, setProvinceName] = useState(null);
   const [districtName, setDistrictName] = useState(null);
   const fileInput1 = React.createRef();
@@ -95,14 +105,6 @@ function UploadFile({ values, setFieldValue }) {
   useEffect(() => {
     fetchKabupaten(selectedProvince);
   }, [selectedProvince]);
-
-  useEffect(() => {
-    fetchKecamatan(selectedKabupaten);
-  }, [selectedKabupaten]);
-
-  useEffect(() => {
-    fetchKelurahan(selectedKecamatan);
-  }, [selectedKecamatan]);
 
   const fetchProvince = async () => {
     const data = await fetch(
@@ -170,19 +172,9 @@ function UploadFile({ values, setFieldValue }) {
     setSelectedKabupaten(e.target.value);
   };
 
-  const handleChangeKecamatan = (e) => {
-    setFieldValue("kecamatan", e.target.value);
-    setSelectedKecamatan(e.target.value);
-  };
-
-  const handleChangeKelurahan = (e) => {
-    setFieldValue("kelurahan/desa", e.target.value);
-    setSelectedKelurahan(e.target.value);
-  };
-
   return (
     <div className="mb-8 text-black bg-white p-20 rounded-xl">
-      <h1 className="text-4xl">Input File</h1>
+      <h1 className="text-4xl">Upload File SPT</h1>
       <Form>
         <div className="grid grid-cols-6 gap-6 my-8 mx-2">
           <div className="mb-col-span-6 sm:col-span-3">
@@ -215,44 +207,6 @@ function UploadFile({ values, setFieldValue }) {
             >
               <option>-- Pilih Kabupaten --</option>
               {kabupaten.map((k) => (
-                <option value={k.id} key={k.id}>
-                  {k.nama}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="grid grid-cols-6 gap-6 my-8 mx-2">
-          <div className="mb-col-span-6 sm:col-span-3">
-            <label htmlFor="kecamatan" className="m-2 font-bold text-black">
-              Kecamatan
-            </label>
-            <select
-              id="kecamatan"
-              name="kecamatan"
-              onChange={handleChangeKecamatan}
-              className="text-black mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-darkcoco focus:border-primary-darkcoco sm:text-sm"
-            >
-              <option>-- Pilih Kecamatan --</option>
-              {kecamatan.map((p) => (
-                <option value={p.id} key={p.id} className="text-black">
-                  {p.nama}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-col-span-6 sm:col-span-3">
-            <label htmlFor="kelurahan" className="m-2 font-bold text-black">
-              Kelurahan/Desa
-            </label>
-            <select
-              id="kelurahan"
-              name="kelurahan"
-              onChange={handleChangeKelurahan}
-              className="text-black mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-darkcoco focus:border-primary-darkcoco sm:text-sm"
-            >
-              <option>-- Pilih Kelurahan / Desa --</option>
-              {kelurahan.map((k) => (
                 <option value={k.id} key={k.id}>
                   {k.nama}
                 </option>
@@ -346,7 +300,6 @@ function UploadFile({ values, setFieldValue }) {
             }}
             ref={fileInput4}
           />
-
           <button
             className="mr-4 bg-s1 p-2 rounded-l-lg text-white"
             type="button"
@@ -391,10 +344,16 @@ function UploadFile({ values, setFieldValue }) {
         <div className="min-h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
           <button
             type="submit"
-            className="w-1/2 mt-8 justify-center place-items-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-s1 "
+            className="w-1/4 mx-3 mt-6 justify-center place-items-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-s1 "
           >
-            Submit
+            Upload
           </button>
+          <Link
+            className="w-1/4 mx-3 mt-6 justify-center place-items-center py-2 px-4 border-s1 border-2 shadow-sm text-sm font-medium rounded-md text-s1 bg-white"
+            href="/Template_File_SPT.xlsx"
+          >
+            Download Template File Xlsx
+          </Link>
         </div>
       </Form>
     </div>
