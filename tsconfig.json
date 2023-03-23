@@ -24,7 +24,8 @@
     "**/*.ts",
     "**/*.tsx",
     "src/components/penilaianKesesuaianLahan/PenilaianKesesuaianLahanForm.jsx",
-    "src/components/table/Table.jsx"
+    "src/components/table/Table.jsx",
+    "src/components/inputFile/FormikInput.jsx"
   ],
   "exclude": ["node_modules"]
 }

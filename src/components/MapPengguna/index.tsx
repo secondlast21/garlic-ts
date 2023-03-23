@@ -56,7 +56,7 @@ export default function Index() {
       return s2Icon;
     } else if (input <= 2.5 && input > 1.5) {
       return s3Icon;
-    } else if (input <= 1.5 && input > 1) {
+    } else if (input <= 1.5 && input >= 1) {
       return nIcon;
     } else return BLIcon;
   }
