@@ -6,19 +6,21 @@ import Select from "react-select";
 import * as Yup from "yup";
 import { getGrowthVariable } from "@/services/growthVariableService";
 import { useQuery } from "react-query";
-import { BaseGrowthResponse } from "@/services/growthVariableService";
 import Image from "next/image";
 import Link from "next/link";
 import logoIpb from "../../../public/logo_ipb.png";
-
-const styles = {
-  label: "block text-black text-sm font-bold pt-2 pb-1",
-  field:
-    "bg-gray-200 text-black focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none",
-  errorMsg: "text-red-500 text-sm",
-};
+import { postService } from "@/services/penilaianService";
+import { useMutation } from "react-query";
 
 export default function PenilaianKesesuaianLahanForm() {
+  const { mutate, reset } = useMutation(postService, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error?.message);
+    },
+  });
   const { data, isFetched } = useQuery("getGrowthVariable", getGrowthVariable);
   const [drainaseOptions, setDrainaseOptions] = useState([]);
   const [teksturTanahOptions, setTeksturTanahOptions] = useState([]);
@@ -387,61 +389,16 @@ export default function PenilaianKesesuaianLahanForm() {
   };
 
   function postData(body) {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    };
-
-    fetch(
-      "https://garlic-backend.herokuapp.com/api/v1/inputPengguna",
-      requestOptions
-    )
-      .then((response) => {
-        if (!response.ok) {
-          return response.text().then((text) => {
-            throw new Error(text);
-          });
-        } else {
-          return response.json();
-        }
-      })
-      .then((data) => {
-        setSyaratTumbuh(data);
-        setShowModal(true);
-      })
-      .catch((error) => {
-        setTimeout(() => {
-          alert(error);
-        }, 1000);
-      });
+    mutate(body);
   }
 
-  const getColor = (nilai) => {
-    if (1 <= nilai && nilai <= 1.5) {
-      return "bg-red-600";
-    } else if (1.5 < nilai && nilai <= 2.5) {
-      return "bg-yellow-600";
-    } else if (2.5 < nilai && nilai <= 3.5) {
-      return "bg-yellow-300";
-    } else if (3.5 < nilai && nilai <= 4) {
-      return "bg-green-500";
-    }
-    return "bg-red-600";
-  };
-
-  const getKelas = (nilai) => {
-    if (1 <= nilai && nilai <= 1.5) {
-      return "N";
-    } else if (1.5 < nilai && nilai <= 2.5) {
-      return "S3";
-    } else if (2.5 < nilai && nilai <= 3.5) {
-      return "S2";
-    } else if (3.5 < nilai && nilai <= 4) {
-      return "S1";
-    }
-    return "N";
-  };
+  function dateToMillis(input) {
+    var d = new Date(input);
+    console.log(d);
+    console.log(d.toString());
+    console.log(d.getTime());
+    return d.getTime();
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -479,44 +436,51 @@ export default function PenilaianKesesuaianLahanForm() {
         }
       }
 
+      console.log(province);
+
       let result = {
-        provinceName: province.find((d) => d.id == values.provinsi).id,
+        landName: values.landName,
+        provinceCode: String(province.find((d) => d.id == values.provinsi).id),
+        provinceName: province.find((d) => d.id == values.provinsi).nama,
+        districtCode: String(
+          kabupaten.find((d) => d.id == values["kabupaten/kota"]).id
+        ),
         districtName: kabupaten.find((d) => d.id == values["kabupaten/kota"])
           .nama,
+        subDistrictCode: String(
+          kecamatan.find((d) => d.id == values.kecamatan).id
+        ),
         subDistrictName: kecamatan.find((d) => d.id == values.kecamatan).nama,
+        urbanVillageCode: String(
+          kelurahan.find((d) => d.id == values["kelurahan/desa"]).id
+        ),
         urbanVillageName: kelurahan.find(
           (d) => d.id == values["kelurahan/desa"]
         ).nama,
-        drainageId: values.drainageId,
-        //mediaPerakaran: values.mediaPerakaran,
-        soilTextureId: values.soilTextureId,
-        //retensi: values.retensi,
-        cationExchangeCapacityId: values.cationExchangeCapacityId,
-        soilAcidityId: values.soilAcidityId,
-        soilMineralDepthId: values.soilMineralDepthId,
-        baseSaturationId: values.baseSaturationId,
-        // cuaca: values.cuaca,
-        temperatureId: values.temperatureId,
-        rainfallId: values.rainfallId,
-        //radiasiPenyinaran: values.radiasiPenyinaran,
-        // faktorRelief: values.faktorRelief,
-        elevationId: values.elevationId,
-        reliefId: values.reliefId,
-        sunshineDurationId: values.sunshineDurationId,
-        solarRadiationId: values.solarRadiationId,
-        latitude: values.latitude,
-        longitude: values.longitude,
+        longitude: Number(values.longitude),
+        latitude: Number(values.latitude),
+        temperatureId: Number(values.temperatureId),
+        rainfallId: Number(values.rainfallId),
+        sunshineDurationId: Number(values.sunshineDurationId),
+        solarRadiationId: 70,
+        elevationId: Number(values.elevationId),
+        reliefId: Number(values.reliefId),
+        soilMineralDepthId: Number(values.soilMineralDepthId),
+        baseSaturationId: Number(values.baseSaturationId),
+        soilAcidityId: Number(values.soilAcidityId),
+        drainageId: Number(values.drainageId),
+        soilTextureId: Number(values.soilTextureId),
+        cationExchangeCapacityId: Number(values.cationExchangeCapacityId),
+        observationDate: dateToMillis(values.observationDate),
       };
 
-      if (empty === "") {
-        postData(result);
-      } else {
-        setTimeout(() => {
-          alert(`Kelas ${empty} Tidak Boleh Kosong`);
-        }, 1000);
-      }
+      let input = JSON.stringify(result);
 
+      postData(result);
+
+      console.log(values);
       console.log(result);
+      console.log(data);
     },
   });
 
@@ -532,6 +496,47 @@ export default function PenilaianKesesuaianLahanForm() {
           </h2>
           <div className="flex-grow rounded bg-white px-8 py-4 flex items-center justify-center">
             <form onSubmit={formik.handleSubmit}>
+              <div className="grid grid-cols-6 gap-6 my-8 mx-2">
+                <div className="mb-col-span-6 sm:col-span-3">
+                  <label
+                    htmlFor="observationDate"
+                    className="m-2 font-bold text-black"
+                  >
+                    Tanggal
+                  </label>
+                  <input
+                    id="observationDate"
+                    name="observationDate"
+                    type="date"
+                    placeholder=""
+                    onChange={(value) => {
+                      formik.setFieldValue(
+                        "observationDate",
+                        value.target.value
+                      );
+                    }}
+                    className="text-black mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-darkcoco focus:border-primary-darkcoco sm:text-sm"
+                  />
+                </div>
+                <div className="mb-col-span-6 sm:col-span-3">
+                  <label
+                    htmlFor="landName"
+                    className="m-2 font-bold text-black"
+                  >
+                    Nama Lahan
+                  </label>
+                  <input
+                    id="landName"
+                    name="landName"
+                    type="text"
+                    placeholder=""
+                    onChange={(value) => {
+                      formik.setFieldValue("landName", value.target.value);
+                    }}
+                    className="text-black mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-darkcoco focus:border-primary-darkcoco sm:text-sm"
+                  />
+                </div>
+              </div>
               <div className="grid grid-cols-6 gap-6 my-8 mx-2">
                 <div className="mb-col-span-6 sm:col-span-3">
                   <label
@@ -629,7 +634,7 @@ export default function PenilaianKesesuaianLahanForm() {
                   <input
                     id="latitude"
                     name="latitude"
-                    type="latitude"
+                    type="text"
                     placeholder=""
                     onChange={(value) => {
                       formik.setFieldValue("latitude", value.target.value);
@@ -647,7 +652,7 @@ export default function PenilaianKesesuaianLahanForm() {
                   <input
                     id="longitude"
                     name="longitude"
-                    type="longitude"
+                    type="text"
                     placeholder=""
                     onChange={(value) => {
                       formik.setFieldValue("longitude", value.target.value);
@@ -718,7 +723,7 @@ export default function PenilaianKesesuaianLahanForm() {
                 </div>
                 <div className="col-span-6 sm:col-span-3 my-2">
                   <label
-                    htmlFor="radiasiPenyinaran"
+                    htmlFor="solarRadiationId"
                     className="block text-sm font-medium text-gray-700 space-x-4 my-2"
                   >
                     <b>Radiasi Penyinaran</b>
@@ -741,7 +746,7 @@ export default function PenilaianKesesuaianLahanForm() {
                 </div>
                 <div className="col-span-6 sm:col-span-3 my-2">
                   <label
-                    htmlFor="elevasi"
+                    htmlFor="elevationId"
                     className="block text-sm font-medium text-gray-700 space-x-4 my-2"
                   >
                     <b>Elevasi</b>
@@ -756,7 +761,7 @@ export default function PenilaianKesesuaianLahanForm() {
                 </div>
                 <div className="col-span-6 sm:col-span-3 my-2">
                   <label
-                    htmlFor="relief"
+                    htmlFor="reliefId"
                     className="block text-sm font-medium text-gray-700 space-x-4 my-2"
                   >
                     <b>Relief</b>

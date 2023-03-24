@@ -124,22 +124,6 @@ function UploadFile({ values, setFieldValue }) {
     console.log("kabupaten", json);
   };
 
-  const fetchKecamatan = async (id) => {
-    const data = await fetch(
-      `https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${id}`
-    );
-    const json = await data.json();
-    setKecamatan(json.kecamatan);
-  };
-
-  const fetchKelurahan = async (id) => {
-    const data = await fetch(
-      `https://dev.farizdotid.com/api/daerahindonesia/kelurahan?id_kecamatan=${id}`
-    );
-    const json = await data.json();
-    setKelurahan(json.kelurahan);
-  };
-
   const detailProvince = async (id) => {
     const data = await fetch(
       `https://dev.farizdotid.com/api/daerahindonesia/provinsi/${id}`
