@@ -33,6 +33,9 @@ export default function NavbarMap() {
         <Link href="/input-file" className="btn btn-ghost rounded-btn">
           Input File
         </Link>
+        <Link href="/glosarium" className="btn btn-ghost rounded-btn">
+          Glosarium
+        </Link>
       </>
     );
   };
@@ -88,9 +91,6 @@ export default function NavbarMap() {
             </div>
             <div className="flex-grow"></div>
             {isTokenExisted && <AuthFeature />}
-            <Link href="/glosarium" className="btn btn-ghost rounded-btn">
-              Glosarium
-            </Link>
             {!isTokenExisted ? (
               <Link
                 href="/login"

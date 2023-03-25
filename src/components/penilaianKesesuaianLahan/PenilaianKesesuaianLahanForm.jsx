@@ -1,27 +1,15 @@
-import Navbar from "../navbar/Navbar";
 import React, { useEffect, useState } from "react";
-import { Field, Form, Formik, ErrorMessage, useFormik } from "formik";
+import { useFormik } from "formik";
 import CustomSelect from "../inputHelper/CustomSelect";
-import Select from "react-select";
-import * as Yup from "yup";
 import { getGrowthVariable } from "@/services/growthVariableService";
 import { useQuery } from "react-query";
 import Image from "next/image";
-import Link from "next/link";
 import logoIpb from "../../../public/logo_ipb.png";
 import { postService } from "@/services/penilaianService";
 import { useMutation } from "react-query";
+import { setTitle, setResultTitle, setResultFactor } from "@/utils/utils";
 
 export default function PenilaianKesesuaianLahanForm() {
-  const { mutate, reset } = useMutation(postService, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError: (error) => {
-      console.log(error?.message);
-    },
-  });
-  const { data, isFetched } = useQuery("getGrowthVariable", getGrowthVariable);
   const [drainaseOptions, setDrainaseOptions] = useState([]);
   const [teksturTanahOptions, setTeksturTanahOptions] = useState([]);
   const [kapasitasTukarKationOptions, setKapasitasTukarKationOptions] =
@@ -36,8 +24,6 @@ export default function PenilaianKesesuaianLahanForm() {
   const [radiasiPenyinaranOptions, setRadiasiPenyinaranOptions] = useState([]);
   const [elevasiOptions, setElevasiOptions] = useState([]);
   const [temperaturOptions, setTemperaturOptions] = useState([]);
-  const [syaratTumbuh, setSyaratTumbuh] = useState([]);
-  const [showModal, setShowModal] = useState(false);
   const [province, setProvince] = useState([
     {
       name: "empty",
@@ -54,6 +40,26 @@ export default function PenilaianKesesuaianLahanForm() {
   const [selectedKabupaten, setSelectedKabupaten] = useState(null);
   const [selectedKecamatan, setSelectedKecamatan] = useState(null);
   const [selectedKelurahan, setSelectedKelurahan] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [syaratTumbuh, setSyaratTumbuh] = useState([]);
+  const [kesesuaianLahan, setKesesuaianLahan] = useState(undefined);
+  const [namaLahan, setNamaLahan] = useState("");
+
+  const { mutate, reset } = useMutation(postService, {
+    onSuccess: (data) => {
+      console.log(data);
+      console.log(data?.data.observations[0].growthVariables);
+      setNamaLahan(data?.data.landName);
+      setSyaratTumbuh(data?.data.observations[0].growthVariables);
+      setKesesuaianLahan(data?.data.observations[0].landSuitabilityClass);
+      console.log(syaratTumbuh);
+      console.log(namaLahan);
+    },
+    onError: (error) => {
+      console.log(error?.message);
+    },
+  });
+  const { data, isFetched } = useQuery("getGrowthVariable", getGrowthVariable);
 
   useEffect(() => {
     const drainage = data?.data.filter(function (values) {
@@ -390,13 +396,15 @@ export default function PenilaianKesesuaianLahanForm() {
 
   function postData(body) {
     mutate(body);
+    setShowModal(true);
+  }
+
+  function closeResult() {
+    setShowModal(false);
   }
 
   function dateToMillis(input) {
     var d = new Date(input);
-    console.log(d);
-    console.log(d.toString());
-    console.log(d.getTime());
     return d.getTime();
   }
 
@@ -474,8 +482,6 @@ export default function PenilaianKesesuaianLahanForm() {
         observationDate: dateToMillis(values.observationDate),
       };
 
-      let input = JSON.stringify(result);
-
       postData(result);
 
       console.log(values);
@@ -486,7 +492,7 @@ export default function PenilaianKesesuaianLahanForm() {
 
   return (
     <div className="min-h-screen font-display flex bg-accent items-center justify-center py-24 px-4 sm:px-6 lg:px-8">
-      <div className="card w-fit bg-base-100 shadow-xl">
+      <div className="card w-1/2 bg-base-100 shadow-xl ml-10 mr-5">
         <figure className="px-10 pt-10">
           <Image src={logoIpb} className=" w-36 mx-auto" alt="" />
         </figure>
@@ -721,21 +727,6 @@ export default function PenilaianKesesuaianLahanForm() {
                     options={lamaPenyinaranOptions}
                   />
                 </div>
-                <div className="col-span-6 sm:col-span-3 my-2">
-                  <label
-                    htmlFor="solarRadiationId"
-                    className="block text-sm font-medium text-gray-700 space-x-4 my-2"
-                  >
-                    <b>Radiasi Penyinaran</b>
-                  </label>
-                  <CustomSelect
-                    onChange={(value) =>
-                      formik.setFieldValue("solarRadiationId", value.value)
-                    }
-                    value={formik.values.radiasiPenyinaran}
-                    options={radiasiPenyinaranOptions}
-                  />
-                </div>
                 <div className="col-span-6 sm:col-span-3 mt-8">
                   <label
                     htmlFor="faktorRelief"
@@ -832,7 +823,7 @@ export default function PenilaianKesesuaianLahanForm() {
                 <div className="col-span-6 sm:col-span-3 mb-8">
                   <label
                     htmlFor="drainase"
-                    className="text-black block text-base font-medium text-gray-700 space-x-4"
+                    className="block text-base font-medium text-gray-700 space-x-4"
                   >
                     <b>Drainase</b>
                   </label>
@@ -901,6 +892,241 @@ export default function PenilaianKesesuaianLahanForm() {
           </div>
         </div>
       </div>
+
+      {showModal && (
+        <>
+          <div className="card w-1/2 bg-base-100 shadow-xl ml-5 mr-10 p-5">
+            <button
+              className="btn btn-error btn-circle text-white"
+              onClick={closeResult}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <h2 className={setResultTitle(Number(kesesuaianLahan?.land))}>
+              Hasil Penilaian Kesesuaian Lahan : {namaLahan} -{" "}
+              {setTitle(kesesuaianLahan?.land)}
+            </h2>
+            <div className="grid grid-cols-2 gap-4 justify-items-center">
+              <div
+                className={setResultFactor(
+                  Number(kesesuaianLahan?.uncorrectableAndUncontrollableFactor)
+                )}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Faktor yang Tidak Dapat Dikendalikan dan Tidak Dapat
+                    Dikoreksi -{" "}
+                    {setTitle(
+                      kesesuaianLahan?.uncorrectableAndUncontrollableFactor
+                    )}
+                  </h2>
+                </div>
+              </div>
+              <div
+                className={setResultFactor(
+                  Number(kesesuaianLahan?.correctableFactor)
+                )}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Faktor yang Dapat Dikoreksi -{" "}
+                    {setTitle(kesesuaianLahan?.correctableFactor)}
+                  </h2>
+                </div>
+              </div>
+              <div
+                className={setResultFactor(
+                  Number(kesesuaianLahan?.controllableFactor)
+                )}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Faktor yang Dapat Dikendalikan -{" "}
+                    {setTitle(kesesuaianLahan?.controllableFactor)}
+                  </h2>
+                </div>
+              </div>
+              <div
+                className={setResultFactor(Number(syaratTumbuh?.[0]?.class))}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Kedalaman Mineral Tanah -{" "}
+                    {setTitle(syaratTumbuh?.[0]?.class)}
+                  </h2>
+                  <p>
+                    Rekomendasi :{" "}
+                    {syaratTumbuh?.[0]?.recommendation ??
+                      "Tidak ada rekomendasi"}
+                  </p>
+                </div>
+              </div>
+              <div
+                className={setResultFactor(Number(syaratTumbuh?.[1]?.class))}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Drainase - {setTitle(syaratTumbuh?.[1]?.class)}
+                  </h2>
+                  <p>
+                    Rekomendasi :{" "}
+                    {syaratTumbuh?.[1]?.recommendation ??
+                      "Tidak ada rekomendasi"}
+                  </p>
+                </div>
+              </div>
+              <div
+                className={setResultFactor(Number(syaratTumbuh?.[2]?.class))}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Tekstur Tanah - {setTitle(syaratTumbuh?.[2]?.class)}
+                  </h2>
+                  <p>
+                    Rekomendasi :{" "}
+                    {syaratTumbuh?.[2]?.recommendation ??
+                      "Tidak ada rekomendasi"}
+                  </p>
+                </div>
+              </div>
+              <div
+                className={setResultFactor(Number(syaratTumbuh?.[3]?.class))}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Kemasaman Tanah - {setTitle(syaratTumbuh?.[3]?.class)}
+                  </h2>
+                  <p>
+                    Rekomendasi :{" "}
+                    {syaratTumbuh?.[3]?.recommendation ??
+                      "Tidak ada rekomendasi"}
+                  </p>
+                </div>
+              </div>
+              <div
+                className={setResultFactor(Number(syaratTumbuh?.[4]?.class))}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Kapasitas Tukar Kation -{" "}
+                    {setTitle(syaratTumbuh?.[4]?.class)}
+                  </h2>
+                  <p>
+                    Rekomendasi :{" "}
+                    {syaratTumbuh?.[4]?.recommendation ??
+                      "Tidak ada rekomendasi"}
+                  </p>
+                </div>
+              </div>
+              <div
+                className={setResultFactor(Number(syaratTumbuh?.[5]?.class))}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Kejenuhan Basa - {setTitle(syaratTumbuh?.[5]?.class)}
+                  </h2>
+                  <p>
+                    Rekomendasi :{" "}
+                    {syaratTumbuh?.[5]?.recommendation ??
+                      "Tidak ada rekomendasi"}
+                  </p>
+                </div>
+              </div>
+              <div
+                className={setResultFactor(Number(syaratTumbuh?.[6]?.class))}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Relief - {setTitle(syaratTumbuh?.[6]?.class)}
+                  </h2>
+                  <p>
+                    Rekomendasi :{" "}
+                    {syaratTumbuh?.[6]?.recommendation ??
+                      "Tidak ada rekomendasi"}
+                  </p>
+                </div>
+              </div>
+              <div
+                className={setResultFactor(Number(syaratTumbuh?.[7]?.class))}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Temperatur - {setTitle(syaratTumbuh?.[7]?.class)}
+                  </h2>
+                  <p>
+                    Rekomendasi :{" "}
+                    {syaratTumbuh?.[7]?.recommendation ??
+                      "Tidak ada rekomendasi"}
+                  </p>
+                </div>
+              </div>
+              <div
+                className={setResultFactor(Number(syaratTumbuh?.[8]?.class))}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Curah Hujan - {setTitle(syaratTumbuh?.[8]?.class)}
+                  </h2>
+                  <p>
+                    Rekomendasi :{" "}
+                    {syaratTumbuh?.[8]?.recommendation ??
+                      "Tidak ada rekomendasi"}
+                  </p>
+                </div>
+              </div>
+              <div
+                className={setResultFactor(Number(syaratTumbuh?.[9]?.class))}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Lama Penyinaran - {setTitle(syaratTumbuh?.[9]?.class)}
+                  </h2>
+                  <p>
+                    Rekomendasi :{" "}
+                    {syaratTumbuh?.[9]?.recommendation ??
+                      "Tidak ada rekomendasi"}
+                  </p>
+                </div>
+              </div>
+              <div
+                className={setResultFactor(Number(syaratTumbuh?.[11]?.class))}
+              >
+                <div className="card-body">
+                  <h2 className="card-title">
+                    Elevasi - {setTitle(syaratTumbuh?.[11]?.class)}
+                  </h2>
+                  <p>
+                    Rekomendasi :{" "}
+                    {syaratTumbuh?.[11]?.recommendation ??
+                      "Tidak ada rekomendasi"}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="card-actions justify-end mt-5">
+              <button
+                className="btn btn-error text-white gap-2"
+                onClick={closeResult}
+              >
+                Tutup
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

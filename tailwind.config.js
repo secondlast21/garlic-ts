@@ -34,7 +34,7 @@ module.exports = {
           info: "#04a5e5", // biru langit latte
           success: "#40a02b", // hijau latte
           warning: "#df8e1d", // kuning latte
-          error: "#e64553", // maroon latte
+          error: "#ce5050",
         },
       },
     ],
