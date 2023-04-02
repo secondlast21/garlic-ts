@@ -2,18 +2,19 @@ import api from "./api";
 
 export interface BaseUserResponse {
   success: boolean;
-  data: Datum[];
+  data: DatumUser[];
 }
 
-export interface Datum {
+export interface DatumUser {
   id: string;
   name: string;
   email: string;
   phone: string;
+  role: string;
   profession: string;
   need: string;
-  activeUntil: boolean;
-  emailVerifiedAt: string;
+  activeUntil: null | string;
+  emailVerifiedAt: null | string;
   isNeedExtend: boolean;
   createdAt: string;
   updatedAt: string;
@@ -31,10 +32,10 @@ export interface Institution {
 
 export interface BaseInstitutionResponse {
   success: boolean;
-  data: Datum[];
+  data: DatumInstitution[];
 }
 
-export interface Datum {
+export interface DatumInstitution {
   id: string;
   name: string;
   address: string;

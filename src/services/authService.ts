@@ -21,9 +21,15 @@ export interface BaseCurrentUser {
   data: any;
 }
 
+export interface BaseExtendUser {
+  email: string;
+}
+
 export const login = async (body: TLogin): Promise<any> =>
   await api.post("/user/login", body);
 export const register = async (body: TRegister): Promise<any> =>
   await api.post("/user/register", body);
 export const currentUser = async (): Promise<BaseCurrentUser> =>
   await api.get("user/current");
+export const extendUser = async (body: BaseExtendUser): Promise<any> =>
+  await api.post("/user/request-extend", body);

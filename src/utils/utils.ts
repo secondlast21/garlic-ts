@@ -54,7 +54,7 @@ export function classNames(...classes: any) {
 }
 
 export const formatMillis = (seconds: number, format: string) =>
-  DateTime.fromMillis(seconds).toFormat(format);
+  DateTime.fromMillis(seconds).setLocale("id").toFormat(format);
 
 export function isExpired(input: Number) {
   const now = DateTime.local().toMillis();

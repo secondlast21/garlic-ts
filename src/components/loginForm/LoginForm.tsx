@@ -92,7 +92,7 @@ export default function LoginForm() {
                     className={styles.errorMsg}
                     name="password"
                   />
-                  <div className="m-8 text-center">
+                  <div className="mx-8 mt-8 text-center">
                     <p>
                       Belum punya akun?{" "}
                       <Link href="/register" className="text-title">
@@ -105,6 +105,14 @@ export default function LoginForm() {
                     >
                       Login
                     </button>
+                  </div>
+                  <div className=" text-center">
+                    <p>
+                      Masa waktu akun anda sudah habis?{" "}
+                      <Link href="/extend-account" className="text-title">
+                        Perpanjang masa akun
+                      </Link>
+                    </p>
                   </div>
                 </div>
               </Form>

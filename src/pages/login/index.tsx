@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Navbar from "@/components/navbar/Navbar";
 import LoginForm from "@/components/loginForm/LoginForm";
-import LoginWelcome from "@/components/loginForm/LoginWelcome";
 import Head from "next/head";
 
 export default function Login() {

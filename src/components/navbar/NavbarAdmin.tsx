@@ -42,12 +42,6 @@ export default function NavbarAdmin() {
               Aktivasi Pengguna
             </Link>
             <Link
-              href="/admin/extend-user"
-              className="btn btn-ghost rounded-btn"
-            >
-              Perpanjang Masa Aktif Pengguna
-            </Link>
-            <Link
               href="/admin/activate-institution"
               className="btn btn-ghost rounded-btn"
             >
