@@ -8,6 +8,7 @@ import logoIpb from "../../../public/logo_ipb.png";
 import { postService } from "@/services/penilaianService";
 import { useMutation } from "react-query";
 import { setTitle, setResultTitle, setResultFactor } from "@/utils/utils";
+import Link from "next/link";
 
 export default function PenilaianKesesuaianLahanForm() {
   const [drainaseOptions, setDrainaseOptions] = useState([]);
@@ -54,6 +55,7 @@ export default function PenilaianKesesuaianLahanForm() {
       setKesesuaianLahan(data?.data.observations[0].landSuitabilityClass);
       console.log(syaratTumbuh);
       console.log(namaLahan);
+      setShowModal(true);
     },
     onError: (error) => {
       console.log(error?.message);
@@ -396,7 +398,6 @@ export default function PenilaianKesesuaianLahanForm() {
 
   function postData(body) {
     mutate(body);
-    setShowModal(true);
   }
 
   function closeResult() {
@@ -666,6 +667,18 @@ export default function PenilaianKesesuaianLahanForm() {
                     className="text-black mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-darkcoco focus:border-primary-darkcoco sm:text-sm"
                   />
                 </div>
+                <div className="mb-col-span-6 sm:col-span-6">
+                  Referensi mencari{" "}
+                  <span className="text-s1">
+                    <Link
+                      href="https://www.latlong.net/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      koordinat latitude dan longitude
+                    </Link>
+                  </span>
+                </div>
               </div>
               <div className="text-justify">
                 <div className="col-span-full flex space-x-4 text-lg mt-8 text-black">
@@ -827,7 +840,6 @@ export default function PenilaianKesesuaianLahanForm() {
                   >
                     <b>Drainase</b>
                   </label>
-
                   <CustomSelect
                     onChange={(value) => {
                       formik.setFieldValue("drainageId", value.value);

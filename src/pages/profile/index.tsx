@@ -63,11 +63,6 @@ export default function Profile() {
                           Profil Pengguna
                         </h3>
                       </div>
-                      <div className="flex-none px-4 py-5 sm:px-6 cursor-auto">
-                        <button className=" leading-6 font-medium text-gray-900 hover:underline">
-                          Edit Profil
-                        </button>
-                      </div>
                     </div>
 
                     <div className="border-t border-gray-200">

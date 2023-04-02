@@ -161,12 +161,6 @@ export default function Admin() {
                       >
                         Role
                       </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Aktifkan User
-                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
@@ -257,12 +251,6 @@ export default function Admin() {
                         className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                       >
                         Role
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Aktifkan User
                       </th>
                     </tr>
                   </thead>
