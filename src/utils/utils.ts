@@ -1,3 +1,5 @@
+const { DateTime } = require("luxon");
+
 export function setTitle(input: Number) {
   if (input <= 4 && input > 3.5) {
     return "S1";
@@ -49,4 +51,18 @@ export function setResultFactor(input: Number) {
 
 export function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
+}
+
+export const formatMillis = (seconds: number, format: string) =>
+  DateTime.fromMillis(seconds).toFormat(format);
+
+export function isExpired(input: Number) {
+  const now = DateTime.local().toMillis();
+  if (input === null) return false;
+  if (input > now) return true;
+  return false;
+}
+
+export function capitalizeFirstLetter(str: String) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

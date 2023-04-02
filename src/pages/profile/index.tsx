@@ -6,24 +6,41 @@ import { BaseCurrentUser, currentUser } from "@/services/authService";
 import Head from "next/head";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Profile() {
   const router = useRouter();
+  const [role, setRole] = useState("");
 
   const { data, isFetched } = useQuery<BaseCurrentUser>(
     "getCurrentUser",
     currentUser
   );
 
-  if (isFetched) {
-    console.log(data);
-  }
+  useEffect(() => {
+    if (isFetched) {
+      console.log(data);
+      console.log(data?.data.role);
+      setRole(data?.data.role);
+    }
+  }, [data]);
 
   const handleClick = () => {
     removeTokenFromLocalStorage();
     const token2 = getTokenFromLocalStorage();
     console.log(token2);
     router.replace("/");
+  };
+
+  const AdminFeature = () => {
+    return (
+      <div className="m-4">
+        <Link href="/admin" className="btn btn-ghost rounded-btn text-title">
+          Halaman Admin
+        </Link>
+      </div>
+    );
   };
 
   return (
@@ -112,6 +129,7 @@ export default function Profile() {
                           Logout
                         </button>
                       </div>
+                      {role == "admin" && <AdminFeature />}
                     </div>
                   </div>
                 </div>

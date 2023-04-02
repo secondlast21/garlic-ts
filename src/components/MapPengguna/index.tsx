@@ -88,12 +88,12 @@ export default function Index() {
                 )}
               >
                 <Popup>
-                  <div className="card w-64">
+                  <div className="card w-80">
                     <div className="card-body">
                       <h2 className="card-title">{landLocation.landName}</h2>
                       <div>
-                        <p>
-                          Kelas:{" "}
+                        <p className="font-black leading-relaxed">
+                          Kelas :{" "}
                           <span
                             className={setBg(
                               Number(
@@ -110,138 +110,29 @@ export default function Index() {
                             )}
                           </span>
                         </p>
-                        <p>
-                          Drainase:{" "}
+                        <p className="font-black leading-relaxed">
+                          Faktor yang tidak dapat dikendalikan dan tidak dapat
+                          dikoreksi :{" "}
                           <span
                             className={setBg(
                               Number(
-                                landLocation.observations[0].growthVariables[0]
-                                  .class
+                                landLocation.observations[0]
+                                  .landSuitabilityClass
+                                  .uncorrectableAndUncontrollableFactor
                               )
                             )}
                           >
                             {setTitle(
                               Number(
-                                landLocation.observations[0].growthVariables[0]
-                                  .class
+                                landLocation.observations[0]
+                                  .landSuitabilityClass
+                                  .uncorrectableAndUncontrollableFactor
                               )
                             )}
                           </span>
                         </p>
                         <p>
-                          Saturasi Basa:{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[1]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[1]
-                                  .class
-                              )
-                            )}
-                          </span>
-                        </p>
-                        <p>
-                          Kapasitas Tukar Kation:{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[2]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[2]
-                                  .class
-                              )
-                            )}
-                          </span>
-                        </p>
-                        <p>
-                          Kemasaman Tanah:{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[3]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[3]
-                                  .class
-                              )
-                            )}
-                          </span>
-                        </p>
-                        <p>
-                          Kedalaman Mineral Tanah:{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[4]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[4]
-                                  .class
-                              )
-                            )}
-                          </span>
-                        </p>
-                        <p>
-                          Tekstur Tanah:{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[5]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[5]
-                                  .class
-                              )
-                            )}
-                          </span>
-                        </p>
-                        <p>
-                          Elevasi:{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[6]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[6]
-                                  .class
-                              )
-                            )}{" "}
-                            {Number(
-                              landLocation.observations[0].growthVariables[6]
-                                .class
-                            )}
-                          </span>
-                        </p>
-                        <p>
-                          Radiasi Penyinaran:{" "}
+                          Temperatur :{" "}
                           <span
                             className={setBg(
                               Number(
@@ -259,7 +150,7 @@ export default function Index() {
                           </span>
                         </p>
                         <p>
-                          Lama Penyinaran:{" "}
+                          Curah Hujan :{" "}
                           <span
                             className={setBg(
                               Number(
@@ -277,7 +168,7 @@ export default function Index() {
                           </span>
                         </p>
                         <p>
-                          Curah Hujan:{" "}
+                          Lama Penyinaran :{" "}
                           <span
                             className={setBg(
                               Number(
@@ -294,37 +185,199 @@ export default function Index() {
                             )}
                           </span>
                         </p>
-                        <p>
-                          Temperatur:{" "}
+                        <p className="font-black leading-relaxed">
+                          Faktor Relief :{" "}
                           <span
                             className={setBg(
                               Number(
-                                landLocation.observations[0].growthVariables[10]
+                                landLocation.observations[0]
+                                  .landSuitabilityClass.reliefFactor
+                              )
+                            )}
+                          >
+                            {setTitle(
+                              Number(
+                                landLocation.observations[0]
+                                  .landSuitabilityClass.reliefFactor
+                              )
+                            )}
+                          </span>
+                        </p>
+                        <p>
+                          Elevasi :{" "}
+                          <span
+                            className={setBg(
+                              Number(
+                                landLocation.observations[0].growthVariables[11]
                                   .class
                               )
                             )}
                           >
                             {setTitle(
                               Number(
-                                landLocation.observations[0].growthVariables[10]
+                                landLocation.observations[0].growthVariables[11]
                                   .class
                               )
                             )}
                           </span>
                         </p>
                         <p>
-                          Relief:{" "}
+                          Relief :{" "}
                           <span
                             className={setBg(
                               Number(
-                                landLocation.observations[0].growthVariables[11]
+                                landLocation.observations[0].growthVariables[6]
                                   .class
                               )
                             )}
                           >
                             {setTitle(
                               Number(
-                                landLocation.observations[0].growthVariables[11]
+                                landLocation.observations[0].growthVariables[6]
+                                  .class
+                              )
+                            )}
+                          </span>
+                        </p>
+                        <p className="font-black leading-relaxed">
+                          Faktor yang dapat dikoreksi :{" "}
+                          <span
+                            className={setBg(
+                              Number(
+                                landLocation.observations[0]
+                                  .landSuitabilityClass.correctableFactor
+                              )
+                            )}
+                          >
+                            {setTitle(
+                              Number(
+                                landLocation.observations[0]
+                                  .landSuitabilityClass.correctableFactor
+                              )
+                            )}
+                          </span>
+                        </p>
+                        <p>
+                          Kedalaman Mineral Tanah :{" "}
+                          <span
+                            className={setBg(
+                              Number(
+                                landLocation.observations[0].growthVariables[0]
+                                  .class
+                              )
+                            )}
+                          >
+                            {setTitle(
+                              Number(
+                                landLocation.observations[0].growthVariables[0]
+                                  .class
+                              )
+                            )}
+                          </span>
+                        </p>
+                        <p>
+                          Kejenuhan Basa :{" "}
+                          <span
+                            className={setBg(
+                              Number(
+                                landLocation.observations[0].growthVariables[5]
+                                  .class
+                              )
+                            )}
+                          >
+                            {setTitle(
+                              Number(
+                                landLocation.observations[0].growthVariables[5]
+                                  .class
+                              )
+                            )}
+                          </span>
+                        </p>
+                        <p>
+                          Kemasaman Tanah :{" "}
+                          <span
+                            className={setBg(
+                              Number(
+                                landLocation.observations[0].growthVariables[3]
+                                  .class
+                              )
+                            )}
+                          >
+                            {setTitle(
+                              Number(
+                                landLocation.observations[0].growthVariables[3]
+                                  .class
+                              )
+                            )}
+                          </span>
+                        </p>
+                        <p className="font-black leading-relaxed">
+                          Faktor yang dapat dikendalikan :{" "}
+                          <span
+                            className={setBg(
+                              Number(
+                                landLocation.observations[0]
+                                  .landSuitabilityClass.controllableFactor
+                              )
+                            )}
+                          >
+                            {setTitle(
+                              Number(
+                                landLocation.observations[0]
+                                  .landSuitabilityClass.controllableFactor
+                              )
+                            )}
+                          </span>
+                        </p>
+                        <p>
+                          Drainase :{" "}
+                          <span
+                            className={setBg(
+                              Number(
+                                landLocation.observations[0].growthVariables[1]
+                                  .class
+                              )
+                            )}
+                          >
+                            {setTitle(
+                              Number(
+                                landLocation.observations[0].growthVariables[1]
+                                  .class
+                              )
+                            )}
+                          </span>
+                        </p>
+                        <p>
+                          Tekstur Tanah :{" "}
+                          <span
+                            className={setBg(
+                              Number(
+                                landLocation.observations[0].growthVariables[2]
+                                  .class
+                              )
+                            )}
+                          >
+                            {setTitle(
+                              Number(
+                                landLocation.observations[0].growthVariables[2]
+                                  .class
+                              )
+                            )}
+                          </span>
+                        </p>
+                        <p>
+                          Kapasitas Tukar Kation :{" "}
+                          <span
+                            className={setBg(
+                              Number(
+                                landLocation.observations[0].growthVariables[4]
+                                  .class
+                              )
+                            )}
+                          >
+                            {setTitle(
+                              Number(
+                                landLocation.observations[0].growthVariables[4]
                                   .class
                               )
                             )}

@@ -2,13 +2,18 @@ import Link from "next/link";
 import Image from "next/image";
 import logoIpb from "../../../public/logo_ipb.png";
 import { getTokenFromLocalStorage } from "@/utils/tokenManager";
-import { removeTokenFromLocalStorage } from "@/utils/tokenManager";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { BaseCurrentUser, currentUser } from "@/services/authService";
+import { useQuery } from "react-query";
 
 export default function Navbar() {
   const [isTokenExisted, setIsTokenExisted] = useState(false);
+  const { data, isFetched } = useQuery<BaseCurrentUser>(
+    "getCurrentUser",
+    currentUser
+  );
+
   useEffect(() => {
     const token = getTokenFromLocalStorage();
     if (token) {
@@ -17,6 +22,16 @@ export default function Navbar() {
       setIsTokenExisted(false);
     }
   }, []);
+
+  const AdminFeature = () => {
+    return (
+      <>
+        <Link href="/admin" className="btn btn-ghost rounded-btn">
+          admin
+        </Link>
+      </>
+    );
+  };
 
   const AuthFeature = () => {
     return (
