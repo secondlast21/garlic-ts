@@ -10,6 +10,8 @@ import fileDownload from "js-file-download";
 import { TDownload } from "@/services/downloadService";
 import { useState, useEffect } from "react";
 import RequireAuth from "@/components/Auth";
+import { capitalizeEveryWord } from "@/utils/utils";
+import Swal from "sweetalert2";
 
 export default function DownloadFile() {
   const [bpsCode, setBpsCode] = useState([]);
@@ -22,6 +24,10 @@ export default function DownloadFile() {
   const { mutateAsync: mutateSoil } = useMutation(getDownloadExcelArea);
   const { mutateAsync: mutateWeather } = useMutation(getDownloadWeatherArea);
 
+  const [errorMessageSHP, setErrorMessageSHP] = useState("");
+  const [errorMessageSoil, setErrorMessageSoil] = useState("");
+  const [errorMessageWeather, setErrorMessageWeather] = useState("");
+
   const onDownloadSHPFile = async (
     districtCodeNumber: string,
     districtName: string
@@ -33,8 +39,47 @@ export default function DownloadFile() {
       const response = await mutateSHP(param);
       fileDownload(response, `SHP ${districtName}`);
       console.log(response);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error?.message) {
+        setErrorMessageSHP(error?.message);
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessageSHP,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else if (error?.errors) {
+        const source = error?.errors?.[0]?.source;
+        const msg = error?.errors?.[0]?.message;
+        const errorMsg = `${source} ${msg}`;
+        setErrorMessageSHP(capitalizeEveryWord(errorMsg));
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessageSHP,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else {
+        setErrorMessageSHP("Kesalahan Jaringan");
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessageSHP,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      }
     }
   };
 
@@ -49,8 +94,47 @@ export default function DownloadFile() {
       const response = await mutateSoil(param);
       fileDownload(response, `Karakteristik Tanah ${districtName}`);
       console.log(response);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error?.message) {
+        setErrorMessageSoil(error?.message);
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessageSoil,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else if (error?.errors) {
+        const source = error?.errors?.[0]?.source;
+        const msg = error?.errors?.[0]?.message;
+        const errorMsg = `${source} ${msg}`;
+        setErrorMessageSoil(capitalizeEveryWord(errorMsg));
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessageSoil,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else {
+        setErrorMessageSoil("Kesalahan Jaringan");
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessageSoil,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      }
     }
   };
 
@@ -65,8 +149,47 @@ export default function DownloadFile() {
       const response = await mutateWeather(param);
       fileDownload(response, `Cuaca ${districtName}`);
       console.log(response);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error?.message) {
+        setErrorMessageSoil(error?.message);
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessageSoil,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else if (error?.errors) {
+        const source = error?.errors?.[0]?.source;
+        const msg = error?.errors?.[0]?.message;
+        const errorMsg = `${source} ${msg}`;
+        setErrorMessageSoil(capitalizeEveryWord(errorMsg));
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessageSoil,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else {
+        setErrorMessageSoil("Kesalahan Jaringan");
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessageSoil,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      }
     }
   };
 

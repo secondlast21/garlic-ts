@@ -48,17 +48,52 @@ export default function PenilaianKesesuaianLahanForm() {
 
   const { mutate, reset } = useMutation(postService, {
     onSuccess: (data) => {
-      console.log(data);
-      console.log(data?.data.observations[0].growthVariables);
       setNamaLahan(data?.data.landName);
       setSyaratTumbuh(data?.data.observations[0].growthVariables);
       setKesesuaianLahan(data?.data.observations[0].landSuitabilityClass);
-      console.log(syaratTumbuh);
-      console.log(namaLahan);
       setShowModal(true);
     },
     onError: (error) => {
-      console.log(error?.message);
+      if (error?.message) {
+        setErrorMessage(error?.message);
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessage,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else if (error?.errors) {
+        const source = error?.errors?.[0]?.source;
+        const msg = error?.errors?.[0]?.message;
+        const errorMsg = `${source} ${msg}`;
+        setErrorMessage(capitalizeEveryWord(errorMsg));
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessage,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else {
+        setErrorMessage("Kesalahan Jaringan");
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessage,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      }
     },
   });
   const { data, isFetched } = useQuery("getGrowthVariable", getGrowthVariable);

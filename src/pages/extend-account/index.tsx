@@ -2,18 +2,68 @@ import Navbar from "@/components/navbar/Navbar";
 import { SetStateAction, useState } from "react";
 import { useMutation } from "react-query";
 import Head from "next/head";
-import { extendUser, BaseExtendUser } from "@/services/authService";
+import { extendUser } from "@/services/authService";
+import Swal from "sweetalert2";
+import { capitalizeEveryWord } from "@/utils/utils";
 
-export default function Login() {
+export default function ExtendAccount() {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const { mutate, reset } = useMutation(extendUser, {
     onSuccess: (data) => {
-      console.log(data);
+      Swal.fire({
+        icon: "success",
+        title: "Berhasil",
+        text: "Berhasil melakukan permintaan",
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: "btn btn-success",
+        },
+        confirmButtonText: "Kembali",
+      });
     },
     onError: (error: any) => {
-      setErrorMessage(error?.message);
+      if (error?.message) {
+        setErrorMessage(error?.message);
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessage,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else if (error?.errors) {
+        const source = error?.errors?.[0]?.source;
+        const msg = error?.errors?.[0]?.message;
+        const errorMsg = `${source} ${msg}`;
+        setErrorMessage(capitalizeEveryWord(errorMsg));
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessage,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else {
+        setErrorMessage("Kesalahan Jaringan");
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessage,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      }
     },
   });
 

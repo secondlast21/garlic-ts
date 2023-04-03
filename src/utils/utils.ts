@@ -66,3 +66,11 @@ export function isExpired(input: Number) {
 export function capitalizeFirstLetter(str: String) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function capitalizeEveryWord(str: string): string {
+  const words = str.split(" ");
+  const capitalizedWords = words.map(
+    (word) => word.charAt(0).toUpperCase() + word.slice(1)
+  );
+  return capitalizedWords.join(" ");
+}

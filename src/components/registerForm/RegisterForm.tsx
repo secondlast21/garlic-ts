@@ -13,6 +13,8 @@ import {
   setUserInLocalStorage,
 } from "@/utils/userManager";
 import Head from "next/head";
+import { capitalizeEveryWord } from "@/utils/utils";
+import Swal from "sweetalert2";
 
 const styles = {
   label: "block text-black text-sm font-bold pt-2 pb-1",
@@ -39,7 +41,46 @@ export default function RegisterForm() {
       router.push("/login");
     },
     onError: (error: any) => {
-      setErrorMessage(error?.message);
+      if (error?.message) {
+        setErrorMessage(error?.message);
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessage,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else if (error?.errors) {
+        const source = error?.errors?.[0]?.source;
+        const msg = error?.errors?.[0]?.message;
+        const errorMsg = `${source} ${msg}`;
+        setErrorMessage(capitalizeEveryWord(errorMsg));
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessage,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else {
+        setErrorMessage("Kesalahan Jaringan");
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: errorMessage,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      }
     },
   });
 
