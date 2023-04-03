@@ -4,6 +4,7 @@ import Head from "next/head";
 import { getGrowthVariable } from "@/services/growthVariableService";
 import { useQuery } from "react-query";
 import { useState, useEffect } from "react";
+import RequireAuth from "@/components/Auth";
 
 export default function Glosarium() {
   const { data, isFetched } = useQuery("getGrowthVariable", getGrowthVariable);
@@ -306,315 +307,318 @@ export default function Glosarium() {
   }
 
   return (
-    <div>
-      <Head>
-        <title>INA Agro-GARLIC</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Navbar />
-      <div className="m-32 grid grid-cols-3 gap-4 place-items-strecth">
-        <div>
-          <h2 className="text-xl font-black">Drainase</h2>
-          <table className="table-fixed border-collapse border border-black text-center">
-            <thead>
-              <tr>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Label
-                </th>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Kelas
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {drainaseOptions.map(({ label, kelas }, idx) => (
-                <tr key={idx}>
-                  <td className="border-b border-t border-black px-4">
-                    {capitalizeFirstLetter(label)}
-                  </td>
-                  <td className="border-b border-t border-black px-4">
-                    {kelas}
-                  </td>
+    <RequireAuth>
+      <>
+        <Head>
+          <title>INA Agro-GARLIC</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Navbar />
+        <div className="m-32 grid grid-cols-3 gap-4 place-items-strecth">
+          <div>
+            <h2 className="text-xl font-black">Drainase</h2>
+            <table className="table-fixed border-collapse border border-black text-center">
+              <thead>
+                <tr>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Label
+                  </th>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Kelas
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <h2 className="text-xl font-black">Tekstur Tanah</h2>
-          <table className="table-fixed border-collapse border border-black text-center">
-            <thead>
-              <tr>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Label
-                </th>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Kelas
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {teksturTanahOptions.map(({ label, kelas }, idx) => (
-                <tr key={idx}>
-                  <td className="border-b border-t border-black px-4">
-                    {capitalizeFirstLetter(label)}
-                  </td>
-                  <td className="border-b border-t border-black px-4">
-                    {kelas}
-                  </td>
+              </thead>
+              <tbody>
+                {drainaseOptions.map(({ label, kelas }, idx) => (
+                  <tr key={idx}>
+                    <td className="border-b border-t border-black px-4">
+                      {capitalizeFirstLetter(label)}
+                    </td>
+                    <td className="border-b border-t border-black px-4">
+                      {kelas}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h2 className="text-xl font-black">Tekstur Tanah</h2>
+            <table className="table-fixed border-collapse border border-black text-center">
+              <thead>
+                <tr>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Label
+                  </th>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Kelas
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <h2 className="text-xl font-black">Kapasitas Tukar Kation</h2>
-          <table className="table-fixed border-collapse border border-black text-center">
-            <thead>
-              <tr>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Label
-                </th>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Kelas
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {kapasitasTukarKationOptions.map(({ label, kelas }, idx) => (
-                <tr key={idx}>
-                  <td className="border-b border-t border-black px-4">
-                    {capitalizeFirstLetter(label)}
-                  </td>
-                  <td className="border-b border-t border-black px-4">
-                    {kelas}
-                  </td>
+              </thead>
+              <tbody>
+                {teksturTanahOptions.map(({ label, kelas }, idx) => (
+                  <tr key={idx}>
+                    <td className="border-b border-t border-black px-4">
+                      {capitalizeFirstLetter(label)}
+                    </td>
+                    <td className="border-b border-t border-black px-4">
+                      {kelas}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h2 className="text-xl font-black">Kapasitas Tukar Kation</h2>
+            <table className="table-fixed border-collapse border border-black text-center">
+              <thead>
+                <tr>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Label
+                  </th>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Kelas
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <h2 className="text-xl font-black">Kedalaman Mineral Tanah</h2>
-          <table className="table-fixed border-collapse border border-black text-center">
-            <thead>
-              <tr>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Label
-                </th>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Kelas
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {kedalamanMineralTanahOptions.map(({ label, kelas }, idx) => (
-                <tr key={idx}>
-                  <td className="border-b border-t border-black px-4">
-                    {capitalizeFirstLetter(label)}
-                  </td>
-                  <td className="border-b border-t border-black px-4">
-                    {kelas}
-                  </td>
+              </thead>
+              <tbody>
+                {kapasitasTukarKationOptions.map(({ label, kelas }, idx) => (
+                  <tr key={idx}>
+                    <td className="border-b border-t border-black px-4">
+                      {capitalizeFirstLetter(label)}
+                    </td>
+                    <td className="border-b border-t border-black px-4">
+                      {kelas}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h2 className="text-xl font-black">Kedalaman Mineral Tanah</h2>
+            <table className="table-fixed border-collapse border border-black text-center">
+              <thead>
+                <tr>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Label
+                  </th>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Kelas
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <h2 className="text-xl font-black">Kejenuhan Basa</h2>
-          <table className="table-fixed border-collapse border border-black text-center">
-            <thead>
-              <tr>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Label
-                </th>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Kelas
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {kejenuhanBasaOptions.map(({ label, kelas }, idx) => (
-                <tr key={idx}>
-                  <td className="border-b border-t border-black px-4">
-                    {capitalizeFirstLetter(label)}
-                  </td>
-                  <td className="border-b border-t border-black px-4">
-                    {kelas}
-                  </td>
+              </thead>
+              <tbody>
+                {kedalamanMineralTanahOptions.map(({ label, kelas }, idx) => (
+                  <tr key={idx}>
+                    <td className="border-b border-t border-black px-4">
+                      {capitalizeFirstLetter(label)}
+                    </td>
+                    <td className="border-b border-t border-black px-4">
+                      {kelas}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h2 className="text-xl font-black">Kejenuhan Basa</h2>
+            <table className="table-fixed border-collapse border border-black text-center">
+              <thead>
+                <tr>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Label
+                  </th>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Kelas
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <h2 className="text-xl font-black">Kemasaman Tanah</h2>
-          <table className="table-fixed border-collapse border border-black text-center">
-            <thead>
-              <tr>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Label
-                </th>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Kelas
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {kemasamanTanahOptions.map(({ label, kelas }, idx) => (
-                <tr key={idx}>
-                  <td className="border-b border-t border-black px-4">
-                    {capitalizeFirstLetter(label)}
-                  </td>
-                  <td className="border-b border-t border-black px-4">
-                    {kelas}
-                  </td>
+              </thead>
+              <tbody>
+                {kejenuhanBasaOptions.map(({ label, kelas }, idx) => (
+                  <tr key={idx}>
+                    <td className="border-b border-t border-black px-4">
+                      {capitalizeFirstLetter(label)}
+                    </td>
+                    <td className="border-b border-t border-black px-4">
+                      {kelas}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h2 className="text-xl font-black">Kemasaman Tanah</h2>
+            <table className="table-fixed border-collapse border border-black text-center">
+              <thead>
+                <tr>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Label
+                  </th>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Kelas
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <h2 className="text-xl font-black">Relief</h2>
-          <table className="table-fixed border-collapse border border-black text-center">
-            <thead>
-              <tr>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Label
-                </th>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Kelas
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {reliefOptions.map(({ label, kelas }, idx) => (
-                <tr key={idx}>
-                  <td className="border-b border-t border-black px-4">
-                    {capitalizeFirstLetter(label)}
-                  </td>
-                  <td className="border-b border-t border-black px-4">
-                    {kelas}
-                  </td>
+              </thead>
+              <tbody>
+                {kemasamanTanahOptions.map(({ label, kelas }, idx) => (
+                  <tr key={idx}>
+                    <td className="border-b border-t border-black px-4">
+                      {capitalizeFirstLetter(label)}
+                    </td>
+                    <td className="border-b border-t border-black px-4">
+                      {kelas}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h2 className="text-xl font-black">Relief</h2>
+            <table className="table-fixed border-collapse border border-black text-center">
+              <thead>
+                <tr>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Label
+                  </th>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Kelas
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <h2 className="text-xl font-black">Curah Hujan</h2>
-          <table className="table-fixed border-collapse border border-black text-center">
-            <thead>
-              <tr>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Label
-                </th>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Kelas
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {curahHujanOptions.map(({ label, kelas }, idx) => (
-                <tr key={idx}>
-                  <td className="border-b border-t border-black px-4">
-                    {capitalizeFirstLetter(label)}
-                  </td>
-                  <td className="border-b border-t border-black px-4">
-                    {kelas}
-                  </td>
+              </thead>
+              <tbody>
+                {reliefOptions.map(({ label, kelas }, idx) => (
+                  <tr key={idx}>
+                    <td className="border-b border-t border-black px-4">
+                      {capitalizeFirstLetter(label)}
+                    </td>
+                    <td className="border-b border-t border-black px-4">
+                      {kelas}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h2 className="text-xl font-black">Curah Hujan</h2>
+            <table className="table-fixed border-collapse border border-black text-center">
+              <thead>
+                <tr>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Label
+                  </th>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Kelas
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <h2 className="text-xl font-black">Lama Penyinaran</h2>
-          <table className="table-fixed border-collapse border border-black text-center">
-            <thead>
-              <tr>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Label
-                </th>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Kelas
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {lamaPenyinaranOptions.map(({ label, kelas }, idx) => (
-                <tr key={idx}>
-                  <td className="border-b border-t border-black px-4">
-                    {capitalizeFirstLetter(label)}
-                  </td>
-                  <td className="border-b border-t border-black px-4">
-                    {kelas}
-                  </td>
+              </thead>
+              <tbody>
+                {curahHujanOptions.map(({ label, kelas }, idx) => (
+                  <tr key={idx}>
+                    <td className="border-b border-t border-black px-4">
+                      {capitalizeFirstLetter(label)}
+                    </td>
+                    <td className="border-b border-t border-black px-4">
+                      {kelas}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h2 className="text-xl font-black">Lama Penyinaran</h2>
+            <table className="table-fixed border-collapse border border-black text-center">
+              <thead>
+                <tr>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Label
+                  </th>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Kelas
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <h2 className="text-xl font-black">Elevasi</h2>
-          <table className="table-fixed border-collapse border border-black text-center">
-            <thead>
-              <tr>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Label
-                </th>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Kelas
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {elevasiOptions.map(({ label, kelas }, idx) => (
-                <tr key={idx}>
-                  <td className="border-b border-t border-black px-4">
-                    {capitalizeFirstLetter(label)}
-                  </td>
-                  <td className="border-b border-t border-black px-4">
-                    {kelas}
-                  </td>
+              </thead>
+              <tbody>
+                {lamaPenyinaranOptions.map(({ label, kelas }, idx) => (
+                  <tr key={idx}>
+                    <td className="border-b border-t border-black px-4">
+                      {capitalizeFirstLetter(label)}
+                    </td>
+                    <td className="border-b border-t border-black px-4">
+                      {kelas}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h2 className="text-xl font-black">Elevasi</h2>
+            <table className="table-fixed border-collapse border border-black text-center">
+              <thead>
+                <tr>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Label
+                  </th>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Kelas
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <h2 className="text-xl font-black">Temperatur</h2>
-          <table className="table-fixed border-collapse border border-black text-center">
-            <thead>
-              <tr>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Label
-                </th>
-                <th className="px-20 py-3 border-b border-black bg-accent font-black">
-                  Kelas
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {temperaturOptions.map(({ label, kelas }, idx) => (
-                <tr key={idx}>
-                  <td className="border-b border-t border-black px-4">
-                    {capitalizeFirstLetter(label)}
-                  </td>
-                  <td className="border-b border-t border-black px-4">
-                    {kelas}
-                  </td>
+              </thead>
+              <tbody>
+                {elevasiOptions.map(({ label, kelas }, idx) => (
+                  <tr key={idx}>
+                    <td className="border-b border-t border-black px-4">
+                      {capitalizeFirstLetter(label)}
+                    </td>
+                    <td className="border-b border-t border-black px-4">
+                      {kelas}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h2 className="text-xl font-black">Temperatur</h2>
+            <table className="table-fixed border-collapse border border-black text-center">
+              <thead>
+                <tr>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Label
+                  </th>
+                  <th className="px-20 py-3 border-b border-black bg-accent font-black">
+                    Kelas
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {temperaturOptions.map(({ label, kelas }, idx) => (
+                  <tr key={idx}>
+                    <td className="border-b border-t border-black px-4">
+                      {capitalizeFirstLetter(label)}
+                    </td>
+                    <td className="border-b border-t border-black px-4">
+                      {kelas}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      <p className="text-center">
-        *Informasi diatas bersumber dari Balai Besar Sumberdaya Lahan Pertanian
-      </p>
-      <Footer />
-    </div>
+        <p className="text-center">
+          *Informasi diatas bersumber dari Balai Besar Sumberdaya Lahan
+          Pertanian
+        </p>
+        <Footer />
+      </>
+    </RequireAuth>
   );
 }

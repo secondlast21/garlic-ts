@@ -9,6 +9,7 @@ import Navbar from "@/components/navbar/Navbar";
 import fileDownload from "js-file-download";
 import { TDownload } from "@/services/downloadService";
 import { useState, useEffect } from "react";
+import RequireAuth from "@/components/Auth";
 
 export default function DownloadFile() {
   const [bpsCode, setBpsCode] = useState([]);
@@ -89,54 +90,56 @@ export default function DownloadFile() {
   console.log(bpsCode);
 
   return (
-    <div>
-      <Navbar />
-      <div className="bg-emerald-300 h-full w-full">
-        <div className="m-0 absolute top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2 text-center">
-          <h1 className="text-2xl m-5 font-black">
-            <strong>Download File</strong>
-          </h1>
-          <table className="table-fixed border-collapse border border-black rounded-xl">
-            <thead>
-              <tr>
-                <th className="px-40 py-3 border-b border-black bg-accent font-black">
-                  Nama Daerah
-                </th>
-                <th className="px-40 py-3 border-b border-black bg-accent font-black">
-                  Download
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {bpsCode.map(({ name, bpsCode }, idx) => (
-                <tr key={idx}>
-                  <td className="border-b border-t border-black">{name}</td>
-                  <td className="border-b border-t border-black">
-                    <button
-                      className="btn btn-accent m-3 px-8"
-                      onClick={() => onDownloadSHPFile(bpsCode, name)}
-                    >
-                      SHP
-                    </button>
-                    <button
-                      className="btn btn-accent m-3 px-8"
-                      onClick={() => onDownloadSoilFile(bpsCode, name)}
-                    >
-                      Soil
-                    </button>
-                    <button
-                      className="btn btn-accent m-3 px-8"
-                      onClick={() => onDownloadWeatherFile(bpsCode, name)}
-                    >
-                      Weather
-                    </button>
-                  </td>
+    <RequireAuth>
+      <>
+        <Navbar />
+        <div className="bg-emerald-300 h-full w-full">
+          <div className="m-0 absolute top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2 text-center">
+            <h1 className="text-2xl m-5 font-black">
+              <strong>Download File</strong>
+            </h1>
+            <table className="table-fixed border-collapse border border-black rounded-xl">
+              <thead>
+                <tr>
+                  <th className="px-40 py-3 border-b border-black bg-accent font-black">
+                    Nama Daerah
+                  </th>
+                  <th className="px-40 py-3 border-b border-black bg-accent font-black">
+                    Download
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {bpsCode.map(({ name, bpsCode }, idx) => (
+                  <tr key={idx}>
+                    <td className="border-b border-t border-black">{name}</td>
+                    <td className="border-b border-t border-black">
+                      <button
+                        className="btn btn-accent m-3 px-8"
+                        onClick={() => onDownloadSHPFile(bpsCode, name)}
+                      >
+                        SHP
+                      </button>
+                      <button
+                        className="btn btn-accent m-3 px-8"
+                        onClick={() => onDownloadSoilFile(bpsCode, name)}
+                      >
+                        Soil
+                      </button>
+                      <button
+                        className="btn btn-accent m-3 px-8"
+                        onClick={() => onDownloadWeatherFile(bpsCode, name)}
+                      >
+                        Weather
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    </div>
+      </>
+    </RequireAuth>
   );
 }

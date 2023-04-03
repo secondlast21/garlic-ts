@@ -45,7 +45,7 @@ export default function NavbarAdmin() {
               href="/admin/activate-institution"
               className="btn btn-ghost rounded-btn"
             >
-              Aktivasi Institusi
+              Daftar Institusi
             </Link>
             <div className="flex-grow"></div>
             {!isTokenExisted ? (

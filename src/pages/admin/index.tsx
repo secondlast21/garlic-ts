@@ -10,6 +10,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { isExpired } from "@/utils/utils";
 import { formatMillis } from "@/utils/utils";
 import { capitalizeFirstLetter } from "@/utils/utils";
+import RequireAuth from "@/components/Auth";
 
 export default function Admin() {
   const queryClient = useQueryClient();
@@ -50,23 +51,6 @@ export default function Admin() {
         if (!isExpired(date)) return;
         return data;
       });
-      // const modifyNewData = modifyInActiveData.filter((data: any) => {
-      //   if (data.activeUntil !== null) return;
-      //   return data;
-      // });
-      // const needExtendData = modifyInActiveData.filter((data: any) => {
-      //   if (data.isNeedExtend === false && data.activeUntil === null) return;
-      //   return data;
-      // });
-      // const noNeedExtendData = modifyInActiveData.filter((data: any) => {
-      //   if (data.isNeedExtend === true && data.activeUntil === null) return;
-      //   return data;
-      // });
-
-      // const currentMillis = Date.now();
-      // const modifyNewData: any = [];
-      // const extendActivationData = [];
-      // const noExtendActivationData = [];
 
       const currentTimeInMillis = Date.now();
 
@@ -113,356 +97,360 @@ export default function Admin() {
   }, [dataUser, isFetchedUser]);
 
   return (
-    <>
-      <NavbarAdmin />
-      <div className="py-40 px-20">
-        <div className="px-4 sm:px-6 lg:px-8 pb-16">
-          <div className="sm:flex sm:items-center">
-            <div className="sm:flex-auto">
-              <h1 className="text-base font-semibold leading-6 text-gray-900">
-                Daftar Pengguna Baru
-              </h1>
-              <p className="mt-2 text-sm text-gray-700">Daftar Pengguna Baru</p>
+    <RequireAuth>
+      <>
+        <NavbarAdmin />
+        <div className="py-40 px-20">
+          <div className="px-4 sm:px-6 lg:px-8 pb-16">
+            <div className="sm:flex sm:items-center">
+              <div className="sm:flex-auto">
+                <h1 className="text-base font-semibold leading-6 text-gray-900">
+                  Daftar Pengguna Baru
+                </h1>
+                <p className="mt-2 text-sm text-gray-700">
+                  Daftar Pengguna Baru
+                </p>
+              </div>
+            </div>
+            <div className="mt-8 flow-root">
+              <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                  <table className="min-w-full divide-y divide-gray-300">
+                    <thead>
+                      <tr>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                        >
+                          Nama
+                        </th>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                        >
+                          Email
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Tanggal Dibuat
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Masa Berlaku
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Role
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      {newUser.map((person: any, idx: number) => (
+                        <tr key={idx}>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                            {person.name}
+                          </td>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                            {person.email}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {formatMillis(
+                              Number(person.createdAt),
+                              "EEEE, dd/MM/yyyy"
+                            )}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {Number(person.activeUntil)
+                              ? formatMillis(
+                                  Number(person.activeUntil),
+                                  "EEEE, dd/MM/yyyy"
+                                )
+                              : "Akun belum aktif"}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {capitalizeFirstLetter(person.role)}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            <button
+                              onClick={() => onSubmit(Number(person.id))}
+                              className="py-2 px-4 bg-s1 rounded-lg text-white"
+                            >
+                              Aktifkan User
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="mt-8 flow-root">
-            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                <table className="min-w-full divide-y divide-gray-300">
-                  <thead>
-                    <tr>
-                      <th
-                        scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
-                      >
-                        Nama
-                      </th>
-                      <th
-                        scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
-                      >
-                        Email
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Tanggal Dibuat
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Masa Berlaku
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Role
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200">
-                    {newUser.map((person: any, idx: number) => (
-                      <tr key={idx}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                          {person.name}
-                        </td>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                          {person.email}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {formatMillis(
-                            Number(person.createdAt),
-                            "EEEE, dd/MM/yyyy"
-                          )}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {Number(person.activeUntil)
-                            ? formatMillis(
-                                Number(person.activeUntil),
-                                "EEEE, dd/MM/yyyy"
-                              )
-                            : "Akun belum aktif"}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {capitalizeFirstLetter(person.role)}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          <button
-                            onClick={() => onSubmit(Number(person.id))}
-                            className="py-2 px-4 bg-s1 rounded-lg text-white"
-                          >
-                            Aktifkan User
-                          </button>
-                        </td>
+          <div className="px-4 sm:px-6 lg:px-8 pb-16">
+            <div className="sm:flex sm:items-center">
+              <div className="sm:flex-auto">
+                <h1 className="text-base font-semibold leading-6 text-gray-900">
+                  Daftar Pengguna Tidak Aktif & Butuh Perpanjangan Akun
+                </h1>
+                <p className="mt-2 text-sm text-gray-700">
+                  Daftar Pengguna Tidak Aktif & Butuh Perpanjangan Akun
+                </p>
+              </div>
+            </div>
+            <div className="mt-8 flow-root">
+              <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                  <table className="min-w-full divide-y divide-gray-300">
+                    <thead>
+                      <tr>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                        >
+                          Nama
+                        </th>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                        >
+                          Email
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Tanggal Dibuat
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Masa Berlaku
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Role
+                        </th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      {needExtend.map((person: any, idx: number) => (
+                        <tr key={idx}>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                            {person.name}
+                          </td>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                            {person.email}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {formatMillis(
+                              Number(person.createdAt),
+                              "EEEE, dd/MM/yyyy"
+                            )}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {Number(person.activeUntil)
+                              ? formatMillis(
+                                  Number(person.activeUntil),
+                                  "EEEE, dd/MM/yyyy"
+                                )
+                              : "Akun belum aktif"}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {capitalizeFirstLetter(person.role)}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            <button
+                              onClick={() => onSubmit(Number(person.id))}
+                              className="py-2 px-4 bg-s1 rounded-lg text-white"
+                            >
+                              Aktifkan User
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="px-4 sm:px-6 lg:px-8 pb-16">
+            <div className="sm:flex sm:items-center">
+              <div className="sm:flex-auto">
+                <h1 className="text-base font-semibold leading-6 text-gray-900">
+                  Daftar Pengguna Tidak Aktif & Tidak Butuh Perpanjangan Akun
+                </h1>
+                <p className="mt-2 text-sm text-gray-700">
+                  Daftar Pengguna Tidak Aktif & Tidak Butuh Perpanjangan Akun
+                </p>
+              </div>
+            </div>
+            <div className="mt-8 flow-root">
+              <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                  <table className="min-w-full divide-y divide-gray-300">
+                    <thead>
+                      <tr>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                        >
+                          Nama
+                        </th>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                        >
+                          Email
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Tanggal Dibuat
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Masa Berlaku
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Role
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      {noNeedExtend.map((person: any, idx: number) => (
+                        <tr key={idx}>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                            {person.name}
+                          </td>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                            {person.email}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {formatMillis(
+                              Number(person.createdAt),
+                              "EEEE, dd/MM/yyyy"
+                            )}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {Number(person.activeUntil)
+                              ? formatMillis(
+                                  Number(person.activeUntil),
+                                  "EEEE, dd/MM/yyyy"
+                                )
+                              : "Akun belum aktif"}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {capitalizeFirstLetter(person.role)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="px-4 sm:px-6 lg:px-8">
+            <div className="sm:flex sm:items-center">
+              <div className="sm:flex-auto">
+                <h1 className="text-base font-semibold leading-6 text-gray-900">
+                  Daftar Pengguna Aktif
+                </h1>
+                <p className="mt-2 text-sm text-gray-700">
+                  Daftar Pengguna Aktif
+                </p>
+              </div>
+            </div>
+            <div className="mt-8 flow-root">
+              <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                  <table className="min-w-full divide-y divide-gray-300">
+                    <thead>
+                      <tr>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                        >
+                          Nama
+                        </th>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                        >
+                          Email
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Tanggal Dibuat
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Masa Berlaku
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Role
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      {allActiveUser.map((person: any, idx) => (
+                        <tr key={idx}>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                            {person.name}
+                          </td>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                            {person.email}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {formatMillis(
+                              Number(person.createdAt),
+                              "EEEE, dd/MM/yyyy"
+                            )}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {Number(person.activeUntil)
+                              ? formatMillis(
+                                  Number(person.activeUntil),
+                                  "EEEE, dd/MM/yyyy"
+                                )
+                              : "Akun belum aktif"}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {capitalizeFirstLetter(person.role)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="px-4 sm:px-6 lg:px-8 pb-16">
-          <div className="sm:flex sm:items-center">
-            <div className="sm:flex-auto">
-              <h1 className="text-base font-semibold leading-6 text-gray-900">
-                Daftar Pengguna Tidak Aktif & Butuh Perpanjangan Akun
-              </h1>
-              <p className="mt-2 text-sm text-gray-700">
-                Daftar Pengguna Tidak Aktif & Butuh Perpanjangan Akun
-              </p>
-            </div>
-          </div>
-          <div className="mt-8 flow-root">
-            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                <table className="min-w-full divide-y divide-gray-300">
-                  <thead>
-                    <tr>
-                      <th
-                        scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
-                      >
-                        Nama
-                      </th>
-                      <th
-                        scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
-                      >
-                        Email
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Tanggal Dibuat
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Masa Berlaku
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Role
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200">
-                    {needExtend.map((person: any, idx: number) => (
-                      <tr key={idx}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                          {person.name}
-                        </td>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                          {person.email}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {formatMillis(
-                            Number(person.createdAt),
-                            "EEEE, dd/MM/yyyy"
-                          )}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {Number(person.activeUntil)
-                            ? formatMillis(
-                                Number(person.activeUntil),
-                                "EEEE, dd/MM/yyyy"
-                              )
-                            : "Akun belum aktif"}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {capitalizeFirstLetter(person.role)}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          <button
-                            onClick={() => onSubmit(Number(person.id))}
-                            className="py-2 px-4 bg-s1 rounded-lg text-white"
-                          >
-                            Aktifkan User
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="px-4 sm:px-6 lg:px-8 pb-16">
-          <div className="sm:flex sm:items-center">
-            <div className="sm:flex-auto">
-              <h1 className="text-base font-semibold leading-6 text-gray-900">
-                Daftar Pengguna Tidak Aktif & Tidak Butuh Perpanjangan Akun
-              </h1>
-              <p className="mt-2 text-sm text-gray-700">
-                Daftar Pengguna Tidak Aktif & Tidak Butuh Perpanjangan Akun
-              </p>
-            </div>
-          </div>
-          <div className="mt-8 flow-root">
-            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                <table className="min-w-full divide-y divide-gray-300">
-                  <thead>
-                    <tr>
-                      <th
-                        scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
-                      >
-                        Nama
-                      </th>
-                      <th
-                        scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
-                      >
-                        Email
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Tanggal Dibuat
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Masa Berlaku
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Role
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200">
-                    {noNeedExtend.map((person: any, idx: number) => (
-                      <tr key={idx}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                          {person.name}
-                        </td>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                          {person.email}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {formatMillis(
-                            Number(person.createdAt),
-                            "EEEE, dd/MM/yyyy"
-                          )}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {Number(person.activeUntil)
-                            ? formatMillis(
-                                Number(person.activeUntil),
-                                "EEEE, dd/MM/yyyy"
-                              )
-                            : "Akun belum aktif"}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {capitalizeFirstLetter(person.role)}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="sm:flex sm:items-center">
-            <div className="sm:flex-auto">
-              <h1 className="text-base font-semibold leading-6 text-gray-900">
-                Daftar Pengguna Aktif
-              </h1>
-              <p className="mt-2 text-sm text-gray-700">
-                Daftar Pengguna Aktif
-              </p>
-            </div>
-          </div>
-          <div className="mt-8 flow-root">
-            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                <table className="min-w-full divide-y divide-gray-300">
-                  <thead>
-                    <tr>
-                      <th
-                        scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
-                      >
-                        Nama
-                      </th>
-                      <th
-                        scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
-                      >
-                        Email
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Tanggal Dibuat
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Masa Berlaku
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        Role
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200">
-                    {allActiveUser.map((person: any, idx) => (
-                      <tr key={idx}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                          {person.name}
-                        </td>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                          {person.email}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {formatMillis(
-                            Number(person.createdAt),
-                            "EEEE, dd/MM/yyyy"
-                          )}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {Number(person.activeUntil)
-                            ? formatMillis(
-                                Number(person.activeUntil),
-                                "EEEE, dd/MM/yyyy"
-                              )
-                            : "Akun belum aktif"}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {capitalizeFirstLetter(person.role)}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+      </>
+    </RequireAuth>
   );
 }
