@@ -16,14 +16,6 @@ export default function Index() {
     getUserAreaLocation
   );
 
-  if (isFetched) {
-    console.log(data);
-
-    data?.data.map((landLocation) => {
-      console.log(landLocation);
-    });
-  }
-
   var s1Icon = L.icon({
     iconUrl:
       "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|10a063&chf=a,s,ee00FFFF",
@@ -76,9 +68,8 @@ export default function Index() {
         />
         {isFetched &&
           data?.data.map((landLocation, idx) => {
-            console.log(landLocation);
-            let lat = landLocation.pointLocation.latitude;
-            let lng = landLocation.pointLocation.longitude;
+            let lat = landLocation.pointLocation?.latitude ?? 0;
+            let lng = landLocation.pointLocation?.longitude ?? 0;
             return (
               <Marker
                 position={[Number(lat), Number(lng)]}
