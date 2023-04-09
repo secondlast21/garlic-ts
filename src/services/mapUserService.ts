@@ -66,5 +66,15 @@ export interface BaseUserAreaLocation {
   data: Datum[];
 }
 
+export interface BaseDeleteUserAreaLocation {
+  success: boolean;
+  data: string;
+}
+
 export const getUserAreaLocation = async (): Promise<BaseUserAreaLocation> =>
   await api.get("/land-location/user");
+
+export const deleteUserAreaLocation = async (
+  id: number
+): Promise<BaseDeleteUserAreaLocation> =>
+  await api.delete(`/land-location/user/${id}`);

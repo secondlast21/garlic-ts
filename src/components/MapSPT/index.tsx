@@ -45,14 +45,13 @@ export default function Index() {
 
   console.log(coordinates);
 
-  // Define an object that maps land suitability class to colors
-  const landSuitabilityColors: { [key: string]: any } = {
-    4: { fillColor: "#10a063", color: "#fff" },
-    3: { fillColor: "#ffcd42", color: "#fff" },
-    2: { fillColor: "#e99b5C", color: "#fff" },
-    1: { fillColor: "#ce5050", color: "#fff" },
-    null: { fillColor: "#6f6f6f", color: "#fff" },
-  };
+  // const landSuitabilityColors: { [key: string]: any } = {
+  //   4: { fillColor: "#10a063", color: "#fff" },
+  //   3: { fillColor: "#ffcd42", color: "#fff" },
+  //   2: { fillColor: "#e99b5C", color: "#fff" },
+  //   1: { fillColor: "#ce5050", color: "#fff" },
+  //   null: { fillColor: "#6f6f6f", color: "#fff" },
+  // };
 
   function landColor(index: any) {
     if (index == 4) {
@@ -80,7 +79,7 @@ export default function Index() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <LayersControl position="topright">
-          <LayersControl.Overlay checked name="Default">
+          <LayersControl.Overlay checked name="Peta Kesesuaian Lahan">
             <LayerGroup>
               {isFetchedLand &&
                 coordinates.map((polygonCoords: any, index: any) => {
@@ -116,7 +115,7 @@ export default function Index() {
                       positions={polygonCoords}
                     >
                       <Popup>
-                        <div className="card w-64">
+                        <div className="card card-compact w-80">
                           <div className="card-body">
                             <h2 className="card-title">Keterangan Lahan</h2>
                             <div>
@@ -1031,7 +1030,7 @@ export default function Index() {
             </LayerGroup>
           </LayersControl.Overlay>
           */}
-          <LayersControl.Overlay name="Kejenuhan Basa">
+          <LayersControl.Overlay name="Saturasi Basa">
             <LayerGroup>
               {isFetchedLand &&
                 coordinates.map((polygonCoords: any, index: any) => {

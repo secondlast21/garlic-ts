@@ -24,7 +24,7 @@ export default function Admin() {
   const [needExtend, setNeedExtend] = useState<any>([]);
   const [noNeedExtend, setNoNeedExtend] = useState<any>([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const { mutate, reset } = useMutation(activateUser, {
+  const { mutate } = useMutation(activateUser, {
     onSuccess: (data) => {
       console.log(data);
       queryClient.invalidateQueries("getAllUser");

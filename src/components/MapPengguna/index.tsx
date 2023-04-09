@@ -6,15 +6,31 @@ import * as L from "leaflet";
 import {
   BaseUserAreaLocation,
   getUserAreaLocation,
+  deleteUserAreaLocation,
 } from "@/services/mapUserService";
-import { useQuery } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { setBg, setTitle } from "@/utils/utils";
 
 export default function Index() {
+  const queryClient = useQueryClient();
   const { data, isFetched } = useQuery<BaseUserAreaLocation>(
     "getUserAreaLocation",
     getUserAreaLocation
   );
+
+  const { mutate } = useMutation(deleteUserAreaLocation, {
+    onSuccess: (data) => {
+      console.log(data);
+      queryClient.invalidateQueries("getUserAreaLocation");
+    },
+    onError: (error: any) => {
+      console.log(error?.message);
+    },
+  });
+
+  const onSubmit = (id: number) => {
+    mutate(id);
+  };
 
   var s1Icon = L.icon({
     iconUrl:
@@ -79,7 +95,7 @@ export default function Index() {
                 )}
               >
                 <Popup>
-                  <div className="card w-80">
+                  <div className="card card-compact w-80">
                     <div className="card-body">
                       <h2 className="card-title">{landLocation.landName}</h2>
                       <div>
@@ -374,6 +390,14 @@ export default function Index() {
                             )}
                           </span>
                         </p>
+                      </div>
+                      <div className="card-actions justify-end">
+                        <button
+                          className="btn btn-error"
+                          onClick={() => onSubmit(Number(landLocation.id))}
+                        >
+                          Hapus Lahan
+                        </button>
                       </div>
                     </div>
                   </div>
