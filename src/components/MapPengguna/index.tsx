@@ -8,10 +8,12 @@ import {
   getUserAreaLocation,
   deleteUserAreaLocation,
 } from "@/services/mapUserService";
+import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { setBg, setTitle } from "@/utils/utils";
 
 export default function Index() {
+  const [errorMessage, setErrorMessage] = useState("");
   const queryClient = useQueryClient();
   const { data, isFetched } = useQuery<BaseUserAreaLocation>(
     "getUserAreaLocation",
@@ -24,7 +26,7 @@ export default function Index() {
       queryClient.invalidateQueries("getUserAreaLocation");
     },
     onError: (error: any) => {
-      console.log(error?.message);
+      setErrorMessage(error?.message);
     },
   });
 
