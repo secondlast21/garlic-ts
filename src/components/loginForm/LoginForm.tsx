@@ -19,7 +19,6 @@ const styles = {
 };
 
 export default function LoginForm() {
-  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   const { mutate, reset } = useMutation(login, {
     onSuccess: (data) => {
@@ -33,11 +32,10 @@ export default function LoginForm() {
     },
     onError: (error: any) => {
       if (error?.message) {
-        setErrorMessage(error?.message);
         Swal.fire({
           icon: "error",
           title: "Gagal",
-          text: errorMessage,
+          text: error?.message,
           buttonsStyling: false,
           customClass: {
             confirmButton: "btn btn-error",
@@ -48,11 +46,10 @@ export default function LoginForm() {
         const source = error?.errors?.[0]?.source;
         const msg = error?.errors?.[0]?.message;
         const errorMsg = `${source} ${msg}`;
-        setErrorMessage(capitalizeEveryWord(errorMsg));
         Swal.fire({
           icon: "error",
           title: "Gagal",
-          text: errorMessage,
+          text: capitalizeEveryWord(errorMsg),
           buttonsStyling: false,
           customClass: {
             confirmButton: "btn btn-error",
@@ -60,11 +57,10 @@ export default function LoginForm() {
           confirmButtonText: "Kembali",
         });
       } else {
-        setErrorMessage("Kesalahan Jaringan");
         Swal.fire({
           icon: "error",
           title: "Gagal",
-          text: errorMessage,
+          text: "Kesalahan Jaringan",
           buttonsStyling: false,
           customClass: {
             confirmButton: "btn btn-error",
@@ -74,8 +70,6 @@ export default function LoginForm() {
       }
     },
   });
-
-  console.log(errorMessage);
 
   const handleSubmit = (data: TLogin) => mutate(data);
 

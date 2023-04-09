@@ -25,7 +25,6 @@ const styles = {
 
 export default function RegisterForm() {
   let arrayOfData: any[] = [];
-  const [errorMessage, setErrorMessage] = useState("");
   const [isChecked, setChecked] = useState(false);
   const router = useRouter();
   const { data, isFetched } = useQuery<BaseResponse>(
@@ -42,11 +41,10 @@ export default function RegisterForm() {
     },
     onError: (error: any) => {
       if (error?.message) {
-        setErrorMessage(error?.message);
         Swal.fire({
           icon: "error",
           title: "Gagal",
-          text: errorMessage,
+          text: error?.message,
           buttonsStyling: false,
           customClass: {
             confirmButton: "btn btn-error",
@@ -57,11 +55,10 @@ export default function RegisterForm() {
         const source = error?.errors?.[0]?.source;
         const msg = error?.errors?.[0]?.message;
         const errorMsg = `${source} ${msg}`;
-        setErrorMessage(capitalizeEveryWord(errorMsg));
         Swal.fire({
           icon: "error",
           title: "Gagal",
-          text: errorMessage,
+          text: capitalizeEveryWord(errorMsg),
           buttonsStyling: false,
           customClass: {
             confirmButton: "btn btn-error",
@@ -69,11 +66,10 @@ export default function RegisterForm() {
           confirmButtonText: "Kembali",
         });
       } else {
-        setErrorMessage("Kesalahan Jaringan");
         Swal.fire({
           icon: "error",
           title: "Gagal",
-          text: errorMessage,
+          text: "Kesalahan Jaringan",
           buttonsStyling: false,
           customClass: {
             confirmButton: "btn btn-error",

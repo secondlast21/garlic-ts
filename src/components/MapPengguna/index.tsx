@@ -10,7 +10,8 @@ import {
 } from "@/services/mapUserService";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { setBg, setTitle } from "@/utils/utils";
+import { capitalizeEveryWord, setBg, setTitle } from "@/utils/utils";
+import Swal from "sweetalert2";
 
 export default function Index() {
   const [errorMessage, setErrorMessage] = useState("");
@@ -22,11 +23,46 @@ export default function Index() {
 
   const { mutate } = useMutation(deleteUserAreaLocation, {
     onSuccess: (data) => {
-      console.log(data);
       queryClient.invalidateQueries("getUserAreaLocation");
     },
     onError: (error: any) => {
-      setErrorMessage(error?.message);
+      if (error?.message) {
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: error?.message,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else if (error?.errors) {
+        const source = error?.errors?.[0]?.source;
+        const msg = error?.errors?.[0]?.message;
+        const errorMsg = `${source} ${msg}`;
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: capitalizeEveryWord(errorMsg),
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Gagal",
+          text: "Kesalahan Jaringan",
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "btn btn-error",
+          },
+          confirmButtonText: "Kembali",
+        });
+      }
     },
   });
 
