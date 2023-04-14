@@ -7,6 +7,7 @@ import ojan from "../../../public/ojan.png";
 import reja from "../../../public/reja.png";
 import reyhan from "../../../public/muhammad_reyhan.png";
 import dewa from "../../../public/dewa_semadi.jpg";
+import faris from "../../../public/faris_ilham.jpeg";
 
 export default function TimPeneliti() {
   return (
@@ -73,7 +74,7 @@ export default function TimPeneliti() {
               <Peneliti
                 name="Faris Ilham Noormandiri"
                 role="Peneliti"
-                image="./faris_ilham.jpg"
+                image={faris}
               />
             </div>
           </div>
