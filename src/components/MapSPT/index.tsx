@@ -30,8 +30,8 @@ export default function Index() {
 
   useEffect(() => {
     if (isFetchedLand) {
-      const _coordinates = dataLand?.data.map((landLocation) => {
-        return landLocation.geometryLandLocation.geometry.geometry.coordinates.map(
+      const _coordinates = dataLand?.data?.map((landLocation) => {
+        return landLocation.geometryLandLocation.geometry.geometry.coordinates?.map(
           (coorMap) => {
             let temp = coorMap.reverse();
             temp?.map((location) => location.reverse());
@@ -82,10 +82,10 @@ export default function Index() {
           <LayersControl.Overlay checked name="Peta Kesesuaian Lahan">
             <LayerGroup>
               {isFetchedLand &&
-                coordinates.map((polygonCoords: any, index: any) => {
+                coordinates?.map((polygonCoords: any, index: any) => {
                   const landSuitabilityClass =
-                    dataLand?.data[index]?.observations[0]
-                      ?.landSuitabilityClass;
+                    dataLand?.data[index]?.observations[0]?.landSuitabilityClass
+                      ?.land;
                   console.log(
                     dataLand?.data[index]?.observations[0]?.landSuitabilityClass
                   );
@@ -1033,7 +1033,7 @@ export default function Index() {
           <LayersControl.Overlay name="Saturasi Basa">
             <LayerGroup>
               {isFetchedLand &&
-                coordinates.map((polygonCoords: any, index: any) => {
+                coordinates?.map((polygonCoords: any, index: any) => {
                   const dataMap =
                     dataLand?.data[index]?.observations[0]?.growthVariables[0]
                       .class;
@@ -1215,7 +1215,7 @@ export default function Index() {
           <LayersControl.Overlay name="Kedalaman Mineral Tanah">
             <LayerGroup>
               {isFetchedLand &&
-                coordinates.map((polygonCoords: any, index: any) => {
+                coordinates?.map((polygonCoords: any, index: any) => {
                   const dataMap =
                     dataLand?.data[index]?.observations[0]?.growthVariables[1]
                       .class;
@@ -1397,7 +1397,7 @@ export default function Index() {
           <LayersControl.Overlay name="Tekstur Tanah">
             <LayerGroup>
               {isFetchedLand &&
-                coordinates.map((polygonCoords: any, index: any) => {
+                coordinates?.map((polygonCoords: any, index: any) => {
                   const dataMap =
                     dataLand?.data[index]?.observations[0]?.growthVariables[2]
                       .class;
@@ -1579,7 +1579,7 @@ export default function Index() {
           <LayersControl.Overlay name="Kemasaman Tanah">
             <LayerGroup>
               {isFetchedLand &&
-                coordinates.map((polygonCoords: any, index: any) => {
+                coordinates?.map((polygonCoords: any, index: any) => {
                   const dataMap =
                     dataLand?.data[index]?.observations[0]?.growthVariables[3]
                       .class;
@@ -1761,7 +1761,7 @@ export default function Index() {
           <LayersControl.Overlay name="Drainase">
             <LayerGroup>
               {isFetchedLand &&
-                coordinates.map((polygonCoords: any, index: any) => {
+                coordinates?.map((polygonCoords: any, index: any) => {
                   const dataMap =
                     dataLand?.data[index]?.observations[0]?.growthVariables[4]
                       .class;
@@ -1943,7 +1943,7 @@ export default function Index() {
           <LayersControl.Overlay name="Kapasitas Tukar Kation">
             <LayerGroup>
               {isFetchedLand &&
-                coordinates.map((polygonCoords: any, index: any) => {
+                coordinates?.map((polygonCoords: any, index: any) => {
                   const dataMap =
                     dataLand?.data[index]?.observations[0]?.growthVariables[5]
                       .class;
@@ -2125,7 +2125,7 @@ export default function Index() {
           <LayersControl.Overlay name="Relief">
             <LayerGroup>
               {isFetchedLand &&
-                coordinates.map((polygonCoords: any, index: any) => {
+                coordinates?.map((polygonCoords: any, index: any) => {
                   const dataMap =
                     dataLand?.data[index]?.observations[0]?.growthVariables[6]
                       .class;
@@ -2307,7 +2307,7 @@ export default function Index() {
           <LayersControl.Overlay name="Elevasi">
             <LayerGroup>
               {isFetchedLand &&
-                coordinates.map((polygonCoords: any, index: any) => {
+                coordinates?.map((polygonCoords: any, index: any) => {
                   const dataMap =
                     dataLand?.data[index]?.observations[0]?.growthVariables[7]
                       .class;

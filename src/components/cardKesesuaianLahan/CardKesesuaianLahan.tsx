@@ -23,6 +23,12 @@ const detail = [
     keterangan:
       "Lahan yang tidak sesuai (N) karena mempunyai faktor pembatas yang sangat berat dan/atau sulit diatasi.",
   },
+  {
+    title: 'BL - Belum Dinilai',
+    modal: 'my-modal-5',
+    keterangan:
+      "Lahan belum memiliki nilai kesesuaian lahan."
+  }
 ];
 
 export default function CardKesesuaianLahan() {

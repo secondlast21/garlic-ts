@@ -5,7 +5,7 @@ import {
 } from "@/utils/tokenManager";
 
 const api = axios.create({
-  baseURL: "https://api.ina-agro.apps.cs.ipb.ac.id/api/v2",
+  baseURL: "https://garlic.cryptbrn.my.id/api/v2",
   timeout: 600 * 1000, // 600 seconds
   headers: {
     "Content-Type": "application/json",

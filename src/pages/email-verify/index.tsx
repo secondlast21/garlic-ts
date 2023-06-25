@@ -14,8 +14,11 @@ export default function emailVerify() {
             <Image src={logoIpb} className=" w-36 mx-auto" alt="" />
           </figure>
           <div className="card-body items-center text-center">
-            <h2 className="card-title">Email Teraktivasi</h2>
-            <p>Selamat email kamu sudah aktif!</p>
+            <h2 className="card-title">Email Terverifikasi</h2>
+            <p>
+              Selamat email anda sudah terverifikasi! Silahkan menunggu admin
+              untuk mengaktifkan akun anda.
+            </p>
             <div className="card-actions">
               <Link href="/login" className="btn btn-accent m-5 px-16">
                 Login

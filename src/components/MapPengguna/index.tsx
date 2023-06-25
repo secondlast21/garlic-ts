@@ -8,18 +8,28 @@ import {
   getUserAreaLocation,
   deleteUserAreaLocation,
 } from "@/services/mapUserService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { capitalizeEveryWord, setBg, setTitle } from "@/utils/utils";
 import Swal from "sweetalert2";
+import { getTokenFromLocalStorage } from "@/utils/tokenManager";
 
 export default function Index() {
-  const [errorMessage, setErrorMessage] = useState("");
   const queryClient = useQueryClient();
   const { data, isFetched } = useQuery<BaseUserAreaLocation>(
     "getUserAreaLocation",
     getUserAreaLocation
   );
+
+  useEffect(() => {
+    const token = getTokenFromLocalStorage();
+    if (token) {
+      setIsTokenExisted(true);
+    } else {
+      setIsTokenExisted(false);
+    }
+  }, []);
+  const [isTokenExisted, setIsTokenExisted] = useState(false);
 
   const { mutate } = useMutation(deleteUserAreaLocation, {
     onSuccess: (data) => {
@@ -122,8 +132,38 @@ export default function Index() {
         />
         {isFetched &&
           data?.data.map((landLocation, idx) => {
+            console.log(landLocation.id)
             let lat = landLocation.pointLocation?.latitude ?? 0;
             let lng = landLocation.pointLocation?.longitude ?? 0;
+            const temp = landLocation.observations?.[0]?.growthVariables;
+            const elevasi = temp?.find((item) => item.variable === "elevation");
+            const lamaPenyinaran = temp?.find(
+              (item) => item.variable === "sunshine_duration"
+            );
+            const curahHujan = temp?.find(
+              (item) => item.variable === "rainfall"
+            );
+            const temperature = temp?.find(
+              (item) => item.variable === "temperature"
+            );
+            const relief = temp?.find((item) => item.variable === "relief");
+            const saturasiBasa = temp?.find(
+              (item) => item.variable === "base_saturation"
+            );
+            const kation = temp?.find(
+              (item) => item.variable === "cation_exchange_capacity"
+            );
+            const kemasamanTanah = temp?.find(
+              (item) => item.variable === "soil_acidity"
+            );
+            const teksturTanah = temp?.find(
+              (item) => item.variable === "soil_texture"
+            );
+            const drainase = temp?.find((item) => item.variable === "drainage");
+            const kedalamanMineral = temp?.find(
+              (item) => item.variable === "soil_mineral_depth"
+            );
+
             return (
               <Marker
                 position={[Number(lat), Number(lng)]}
@@ -178,56 +218,22 @@ export default function Index() {
                         </p>
                         <p>
                           Temperatur :{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[7]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[7]
-                                  .class
-                              )
-                            )}
+                          <span className={setBg(Number(temperature?.class))}>
+                            {setTitle(Number(temperature?.class))}
                           </span>
                         </p>
                         <p>
                           Curah Hujan :{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[8]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[8]
-                                  .class
-                              )
-                            )}
+                          <span className={setBg(Number(curahHujan?.class))}>
+                            {setTitle(Number(curahHujan?.class))}
                           </span>
                         </p>
                         <p>
                           Lama Penyinaran :{" "}
                           <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[9]
-                                  .class
-                              )
-                            )}
+                            className={setBg(Number(lamaPenyinaran?.class))}
                           >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[9]
-                                  .class
-                              )
-                            )}
+                            {setTitle(Number(lamaPenyinaran?.class))}
                           </span>
                         </p>
                         <p className="font-black leading-relaxed">
@@ -250,38 +256,14 @@ export default function Index() {
                         </p>
                         <p>
                           Elevasi :{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[11]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[11]
-                                  .class
-                              )
-                            )}
+                          <span className={setBg(Number(elevasi?.class))}>
+                            {setTitle(Number(elevasi?.class))}
                           </span>
                         </p>
                         <p>
                           Relief :{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[6]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[6]
-                                  .class
-                              )
-                            )}
+                          <span className={setBg(Number(relief?.class))}>
+                            {setTitle(Number(relief?.class))}
                           </span>
                         </p>
                         <p className="font-black leading-relaxed">
@@ -305,55 +287,23 @@ export default function Index() {
                         <p>
                           Kedalaman Mineral Tanah :{" "}
                           <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[0]
-                                  .class
-                              )
-                            )}
+                            className={setBg(Number(kedalamanMineral?.class))}
                           >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[0]
-                                  .class
-                              )
-                            )}
+                            {setTitle(Number(kedalamanMineral?.class))}
                           </span>
                         </p>
                         <p>
                           Kejenuhan Basa :{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[5]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[5]
-                                  .class
-                              )
-                            )}
+                          <span className={setBg(Number(saturasiBasa?.class))}>
+                            {setTitle(Number(saturasiBasa?.class))}
                           </span>
                         </p>
                         <p>
                           Kemasaman Tanah :{" "}
                           <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[3]
-                                  .class
-                              )
-                            )}
+                            className={setBg(Number(kemasamanTanah?.class))}
                           >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[3]
-                                  .class
-                              )
-                            )}
+                            {setTitle(Number(kemasamanTanah?.class))}
                           </span>
                         </p>
                         <p className="font-black leading-relaxed">
@@ -376,67 +326,33 @@ export default function Index() {
                         </p>
                         <p>
                           Drainase :{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[1]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[1]
-                                  .class
-                              )
-                            )}
+                          <span className={setBg(Number(drainase?.class))}>
+                            {setTitle(Number(drainase?.class))}
                           </span>
                         </p>
                         <p>
                           Tekstur Tanah :{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[2]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[2]
-                                  .class
-                              )
-                            )}
+                          <span className={setBg(Number(teksturTanah?.class))}>
+                            {setTitle(Number(teksturTanah?.class))}
                           </span>
                         </p>
                         <p>
                           Kapasitas Tukar Kation :{" "}
-                          <span
-                            className={setBg(
-                              Number(
-                                landLocation.observations[0].growthVariables[4]
-                                  .class
-                              )
-                            )}
-                          >
-                            {setTitle(
-                              Number(
-                                landLocation.observations[0].growthVariables[4]
-                                  .class
-                              )
-                            )}
+                          <span className={setBg(Number(kation?.class))}>
+                            {setTitle(Number(kation?.class))}
                           </span>
                         </p>
                       </div>
-                      <div className="card-actions justify-end">
-                        <button
-                          className="btn btn-error"
-                          onClick={() => onSubmit(Number(landLocation.id))}
-                        >
-                          Hapus Lahan
-                        </button>
-                      </div>
+                      {isTokenExisted && (
+                        <div className="card-actions justify-end">
+                          <button
+                            className="btn btn-error"
+                            onClick={() => onSubmit(Number(landLocation.id))}
+                          >
+                            Hapus Lahan
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </Popup>
