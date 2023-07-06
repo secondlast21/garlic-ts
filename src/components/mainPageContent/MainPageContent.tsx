@@ -14,10 +14,10 @@ export default function MainPageContent() {
       <div className="flex flex-wrap pt-64 mx-8">
         <div className="container mx-auto pb-40 w-7/12">
           <div className="text-7xl m-5 font-display font-semibold text-black">
-            About INA
+            About
           </div>
           <div className="text-7xl m-5 font-display font-bold text-title">
-            Agro-GARLIC
+            INA Agro-GARLIC
           </div>
           <div className="m-5 font-display text-black text-justify	">
             {`INA Agro-GARLIC (Agroecological Assessment of Land Suitability for Garlic) adalah Sistem Informasi Geografis Kesesuaian Agroekologi untuk Bawang Putih pada kawasan prioritas pengembangan lahan bawang putih di Indonesia.

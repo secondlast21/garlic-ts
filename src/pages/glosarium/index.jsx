@@ -5,6 +5,7 @@ import { getGrowthVariable } from "@/services/growthVariableService";
 import { useQuery } from "react-query";
 import { useState, useEffect } from "react";
 import RequireAuth from "@/components/Auth";
+import { setTitle } from "@/utils/utils";
 
 export default function Glosarium() {
   const { data, isFetched } = useQuery("getGrowthVariable", getGrowthVariable);
@@ -335,7 +336,7 @@ export default function Glosarium() {
                       {capitalizeFirstLetter(label)}
                     </td>
                     <td className="border-b border-t border-black px-4">
-                      {kelas}
+                      {setTitle(kelas)}
                     </td>
                   </tr>
                 ))}
@@ -362,7 +363,7 @@ export default function Glosarium() {
                       {capitalizeFirstLetter(label)}
                     </td>
                     <td className="border-b border-t border-black px-4">
-                      {kelas}
+                      {setTitle(kelas)}
                     </td>
                   </tr>
                 ))}
@@ -389,7 +390,7 @@ export default function Glosarium() {
                       {capitalizeFirstLetter(label)}
                     </td>
                     <td className="border-b border-t border-black px-4">
-                      {kelas}
+                      {setTitle(kelas)}
                     </td>
                   </tr>
                 ))}
@@ -416,7 +417,7 @@ export default function Glosarium() {
                       {capitalizeFirstLetter(label)}
                     </td>
                     <td className="border-b border-t border-black px-4">
-                      {kelas}
+                      {setTitle(kelas)}
                     </td>
                   </tr>
                 ))}
@@ -443,7 +444,7 @@ export default function Glosarium() {
                       {capitalizeFirstLetter(label)}
                     </td>
                     <td className="border-b border-t border-black px-4">
-                      {kelas}
+                      {setTitle(kelas)}
                     </td>
                   </tr>
                 ))}
@@ -470,7 +471,7 @@ export default function Glosarium() {
                       {capitalizeFirstLetter(label)}
                     </td>
                     <td className="border-b border-t border-black px-4">
-                      {kelas}
+                      {setTitle(kelas)}
                     </td>
                   </tr>
                 ))}
@@ -497,7 +498,7 @@ export default function Glosarium() {
                       {capitalizeFirstLetter(label)}
                     </td>
                     <td className="border-b border-t border-black px-4">
-                      {kelas}
+                      {setTitle(kelas)}
                     </td>
                   </tr>
                 ))}
@@ -524,7 +525,7 @@ export default function Glosarium() {
                       {capitalizeFirstLetter(label)}
                     </td>
                     <td className="border-b border-t border-black px-4">
-                      {kelas}
+                      {setTitle(kelas)}
                     </td>
                   </tr>
                 ))}
@@ -551,7 +552,7 @@ export default function Glosarium() {
                       {capitalizeFirstLetter(label)}
                     </td>
                     <td className="border-b border-t border-black px-4">
-                      {kelas}
+                      {setTitle(kelas)}
                     </td>
                   </tr>
                 ))}
@@ -578,7 +579,7 @@ export default function Glosarium() {
                       {capitalizeFirstLetter(label)}
                     </td>
                     <td className="border-b border-t border-black px-4">
-                      {kelas}
+                      {setTitle(kelas)}
                     </td>
                   </tr>
                 ))}
@@ -605,7 +606,7 @@ export default function Glosarium() {
                       {capitalizeFirstLetter(label)}
                     </td>
                     <td className="border-b border-t border-black px-4">
-                      {kelas}
+                      {setTitle(kelas)}
                     </td>
                   </tr>
                 ))}
