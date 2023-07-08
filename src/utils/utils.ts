@@ -1,6 +1,6 @@
 const { DateTime } = require("luxon");
 
-export function setTitle(input: Number) {
+export function setTitle(input: number) {
   if (input <= 4 && input > 3.5) {
     return "S1";
   } else if (input <= 3.5 && input > 2.5) {
@@ -12,7 +12,7 @@ export function setTitle(input: Number) {
   } else return "BL";
 }
 
-export function setBg(input: Number) {
+export function setBg(input: number) {
   if (input <= 4 && input > 3.5) {
     return "bg-s1 p-1 rounded-md text-white";
   } else if (input <= 3.5 && input > 2.5) {
@@ -24,7 +24,7 @@ export function setBg(input: Number) {
   } else return "bg-[#6f6f6f] p-1 rounded-md text-white";
 }
 
-export function setResultTitle(input: Number) {
+export function setResultTitle(input: number) {
   if (input <= 4 && input > 3.5) {
     return "text-2xl text-center font-black my-7 p-5 bg-s1 text-white rounded-xl";
   } else if (input <= 3.5 && input > 2.5) {
@@ -37,7 +37,7 @@ export function setResultTitle(input: Number) {
     return "text-2xl text-center font-black my-7 p-5 bg-[#6f6f6f] text-white rounded-xl";
 }
 
-export function setResultFactor(input: Number) {
+export function setResultFactor(input: number) {
   if (input <= 4 && input > 3.5) {
     return "card w-96 bg-s1 shadow-xl mx-1 text-white";
   } else if (input <= 3.5 && input > 2.5) {
