@@ -1,27 +1,27 @@
-import { currentUser, BaseCurrentUser } from "@/services/authService";
-import { useQuery, useMutation } from "react-query";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { currentUser, BaseCurrentUser } from '@/services/authService'
+import { useQuery, useMutation } from 'react-query'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 interface RequireAuthProps {
-  children: JSX.Element;
+  children: JSX.Element
 }
 
 export default function RequireAuth({ children }: RequireAuthProps) {
-  const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter()
+  const [errorMessage, setErrorMessage] = useState('')
   const { mutate, reset } = useMutation(currentUser, {
     onError: (error: any) => {
-      setErrorMessage(error?.message);
+      setErrorMessage(error?.message)
     },
-  });
+  })
 
   useEffect(() => {
-    mutate();
-  }, []);
+    mutate()
+  }, [])
 
-  if (errorMessage === "Unauthorized") {
-    router.push("/");
-    return null;
-  } else return children;
+  if (errorMessage === 'Unauthorized') {
+    router.push('/')
+    return null
+  } else return children
 }

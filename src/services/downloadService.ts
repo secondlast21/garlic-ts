@@ -1,9 +1,9 @@
-import api from "./api";
+import api from './api'
 
 export interface TDownload {
-  landLocationId?: number;
-  provinceCode?: string;
-  districtCode?: string;
+  landLocationId?: number
+  provinceCode?: string
+  districtCode?: string
 }
 
 export const getDownloadArea = async (param: TDownload): Promise<any> =>
@@ -11,24 +11,23 @@ export const getDownloadArea = async (param: TDownload): Promise<any> =>
     params: {
       ...param,
     },
-    responseType: "blob",
-  });
+    responseType: 'blob',
+  })
 
 export const getDownloadExcelArea = async (param: TDownload): Promise<any> =>
   await api.get(`/land-location/geometry/download-soil-characteristic`, {
     params: {
       ...param,
     },
-    responseType: "blob",
-  });
+    responseType: 'blob',
+  })
 
 export const getDownloadWeatherArea = async (param: TDownload): Promise<any> =>
   await api.get(`/land-location/geometry/download-daily-weather`, {
     params: {
       ...param,
     },
-    responseType: "blob",
-  });
+    responseType: 'blob',
+  })
 
-export const getAllArea = async (): Promise<any> =>
-  await api.get("/land-location/geometry/area-location");
+export const getAllArea = async (): Promise<any> => await api.get('/land-location/geometry/area-location')
