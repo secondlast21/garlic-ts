@@ -56,7 +56,15 @@ export default function Index() {
             <LayerGroup>
               {isFetchedLand &&
                 coordinates?.map((polygonCoords: any, index: any) => {
+                  const province = dataLand?.data[index]?.areaLocations?.find((item) => item.type === 'province')
+                  const district = dataLand?.data[index]?.areaLocations?.find((item) => item.type === 'district')
+
                   const landSuitabilityClass = dataLand?.data[index]?.observations[0]?.landSuitabilityClass?.land
+                  const faktorTidakDapatDikendalikanDanDikoreksi = dataLand?.data[index]?. observations[0]?.landSuitabilityClass?.uncorrectableAndUncontrollableFactor
+                  const faktorCuaca = dataLand?.data[index]?.observations[0]?.landSuitabilityClass?.weatherFactor
+                  const faktorRelief = dataLand?.data[index]?.observations[0]?.landSuitabilityClass?.reliefFactor
+                  const faktorDapatDikendalikan = dataLand?.data[index]?. observations[0]?.landSuitabilityClass?.controllableFactor
+                  const faktorDapatDikoreksi = dataLand?.data[index]?. observations[0]?.landSuitabilityClass?.controllableFactor
                   const { fillColor, color } = landColor(Number(landSuitabilityClass)) || {
                     fillColor: '#000000',
                     color: '#000000',
@@ -90,48 +98,28 @@ export default function Index() {
                           <div className='card-body'>
                             <h2 className='card-title'>Keterangan Lahan</h2>
                             <div>
-                              <p>
-                                Saturasi Basa:{' '}
-                                <span className={setBg(Number(saturasiBasa?.class))}>
-                                  {setTitle(Number(saturasiBasa?.class))}
+                              <p className='leading-relaxed'>
+                                <span className='font-black'>Kabupaten/Kota : </span> {district?.name}
+                              </p>
+                              <p className='leading-relaxed'>
+                                <span className='font-black'>Provinsi : </span> {province?.name}
+                              </p>
+                              <p className='font-black leading-relaxed'>
+                                Kelas kesesuaian lahan:{' '}
+                                <span className={setBg(Number(landSuitabilityClass))}>
+                                  {setTitle(Number(landSuitabilityClass))}
                                 </span>
                               </p>
-                              <p>
-                                Kedalaman Mineral Tanah:{' '}
-                                <span className={setBg(Number(kedalamanMineral?.class))}>
-                                  {setTitle(Number(kedalamanMineral?.class))}
+                              <p className='font-black leading-relaxed'>
+                                Faktor yang tidak dapat dikendalikan dan tidak dapat dikoreksi :{' '}
+                                <span className={setBg(Number(faktorTidakDapatDikendalikanDanDikoreksi))}>
+                                  {setTitle(Number(faktorTidakDapatDikendalikanDanDikoreksi))}
                                 </span>
                               </p>
-                              <p>
-                                Tekstur Tanah:{' '}
-                                <span className={setBg(Number(teksturTanah?.class))}>
-                                  {setTitle(Number(teksturTanah?.class))}
-                                </span>
-                              </p>
-                              <p>
-                                Kemasaman Tanah:{' '}
-                                <span className={setBg(Number(kemasamanTanah?.class))}>
-                                  {setTitle(Number(kemasamanTanah?.class))}
-                                </span>
-                              </p>
-                              <p>
-                                Drainase:{' '}
-                                <span className={setBg(Number(drainase?.class))}>
-                                  {setTitle(Number(drainase?.class))}
-                                </span>
-                              </p>
-                              <p>
-                                Kapasitas Tukar Kation:{' '}
-                                <span className={setBg(Number(kation?.class))}>{setTitle(Number(kation?.class))}</span>
-                              </p>
-                              <p>
-                                Relief:{' '}
-                                <span className={setBg(Number(relief?.class))}>{setTitle(Number(relief?.class))}</span>
-                              </p>
-                              <p>
-                                Elevasi:{' '}
-                                <span className={setBg(Number(elevasi?.class))}>
-                                  {setTitle(Number(elevasi?.class))}
+                              <p className='font-black leading-relaxed'>
+                                Faktor cuaca :{' '}
+                                <span className={setBg(Number(faktorCuaca))}>
+                                  {setTitle(Number(faktorCuaca))}
                                 </span>
                               </p>
                               <p>
@@ -141,16 +129,78 @@ export default function Index() {
                                 </span>
                               </p>
                               <p>
+                                Curah Hujan:{' '}
+                                <span className={setBg(Number(curahHujan?.class))}>
+                                  {setTitle(Number(curahHujan?.class))}
+                                </span>
+                              </p>
+                              <p>
                                 Lama Penyinaran:{' '}
                                 <span className={setBg(Number(lamaPenyinaran?.class))}>
                                   {setTitle(Number(lamaPenyinaran?.class))}
                                 </span>
                               </p>
-                              <p>
-                                Curah Hujan:{' '}
-                                <span className={setBg(Number(curahHujan?.class))}>
-                                  {setTitle(Number(curahHujan?.class))}
+                              <p className='font-black leading-relaxed'>
+                                Faktor relief :{' '}
+                                <span className={setBg(Number(faktorRelief))}>
+                                  {setTitle(Number(faktorRelief))}
                                 </span>
+                              </p>
+                              <p>
+                                Elevasi:{' '}
+                                <span className={setBg(Number(elevasi?.class))}>
+                                  {setTitle(Number(elevasi?.class))}
+                                </span>
+                              </p>
+                              <p>
+                                Relief:{' '}
+                                <span className={setBg(Number(relief?.class))}>{setTitle(Number(relief?.class))}</span>
+                              </p>
+                              <p className='font-black leading-relaxed'>
+                                Faktor yang dapat dikoreksi :{' '}
+                                <span className={setBg(Number(faktorDapatDikoreksi))}>
+                                  {setTitle(Number(faktorDapatDikoreksi))}
+                                </span>
+                              </p>
+                              <p>
+                                Kedalaman Mineral Tanah:{' '}
+                                <span className={setBg(Number(kedalamanMineral?.class))}>
+                                  {setTitle(Number(kedalamanMineral?.class))}
+                                </span>
+                              </p>
+                              <p>
+                                Saturasi Basa:{' '}
+                                <span className={setBg(Number(saturasiBasa?.class))}>
+                                  {setTitle(Number(saturasiBasa?.class))}
+                                </span>
+                              </p>
+                              <p>
+                                Kemasaman Tanah:{' '}
+                                <span className={setBg(Number(kemasamanTanah?.class))}>
+                                  {setTitle(Number(kemasamanTanah?.class))}
+                                </span>
+                              </p>
+                              <p className='font-black leading-relaxed'>
+                                Faktor yang dapat dikendalikan :{' '}
+                                <span className={setBg(Number(faktorDapatDikendalikan))}>
+                                  {setTitle(Number(faktorDapatDikendalikan))}
+                                </span>
+                              </p>
+                              <p>
+                                Drainase:{' '}
+                                <span className={setBg(Number(drainase?.class))}>
+                                  {setTitle(Number(drainase?.class))}
+                                </span>
+                              </p>
+                              <p>
+                                Tekstur Tanah:{' '}
+                                <span className={setBg(Number(teksturTanah?.class))}>
+                                  {setTitle(Number(teksturTanah?.class))}
+                                </span>
+                              </p>
+                              <p>
+                                Kapasitas Tukar Kation:{' '}
+                                <span className={setBg(Number(kation?.class))}>{setTitle(Number(kation?.class))}</span>
                               </p>
                             </div>
                           </div>

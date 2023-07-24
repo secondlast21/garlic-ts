@@ -135,6 +135,10 @@ export default function Index() {
             const teksturTanah = temp?.find((item) => item.variable === 'soil_texture')
             const drainase = temp?.find((item) => item.variable === 'drainage')
             const kedalamanMineral = temp?.find((item) => item.variable === 'soil_mineral_depth')
+            const province = landLocation?.areaLocations?.find((item) => item.type === 'province')
+            const district = landLocation?.areaLocations?.find((item) => item.type === 'district')
+            const subDistrict = landLocation?.areaLocations?.find((item)=> item.type === 'sub_district')
+            const urbanVillage = landLocation?.areaLocations?.find((item) => item.type === 'urban_village')
 
             return (
               <Marker
@@ -147,6 +151,15 @@ export default function Index() {
                     <div className='card-body'>
                       <h2 className='card-title'>{landLocation.landName}</h2>
                       <div>
+                        <p className='leading-relaxed'>
+                          <span className='font-black'>Latitude : </span> {lat}
+                        </p>
+                        <p className='leading-relaxed'>
+                          <span className='font-black'>Longitude : </span> {lng}
+                        </p>
+                        <p className='leading-relaxed'>
+                          <span className='font-black'>Lokasi : </span> {`${urbanVillage?.name}, ${subDistrict?.name}, ${district?.name}, ${province?.name}`}
+                        </p>
                         <p className='font-black leading-relaxed'>
                           Kelas :{' '}
                           <span className={setBg(Number(landLocation.observations[0].landSuitabilityClass.land))}>
@@ -167,6 +180,14 @@ export default function Index() {
                                 landLocation.observations[0].landSuitabilityClass.uncorrectableAndUncontrollableFactor
                               )
                             )}
+                          </span>
+                        </p>
+                        <p className='font-black leading-relaxed'>
+                          Faktor Cuaca :{' '}
+                          <span
+                              className={setBg(Number(landLocation.observations[0].landSuitabilityClass.weatherFactor))}
+                          >
+                            {setTitle(Number(landLocation.observations[0].landSuitabilityClass.weatherFactor))}
                           </span>
                         </p>
                         <p>
@@ -220,7 +241,7 @@ export default function Index() {
                           </span>
                         </p>
                         <p>
-                          Kejenuhan Basa :{' '}
+                          Saturasi Basa :{' '}
                           <span className={setBg(Number(saturasiBasa?.class))}>
                             {setTitle(Number(saturasiBasa?.class))}
                           </span>
