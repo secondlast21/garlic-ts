@@ -13,8 +13,8 @@ import { useQuery } from "react-query";
 import { getLand } from "@/services/mapService";
 import { LandLocation } from "@/services/mapService";
 import { BaseMapResponse } from "@/services/mapService";
-import { useState, useEffect, useRef } from "react";
-import { setBg, setTitle } from "@/utils/utils";
+import { useState, useEffect } from "react";
+import { setBg, setTitle, landColor } from "@/utils/utils";
 
 const param: LandLocation = {
   districtCode: "3308",
@@ -42,28 +42,6 @@ export default function Index() {
       setCoordinates(_coordinates);
     }
   }, [isFetchedLand]);
-
-  console.log(coordinates);
-
-  // const landSuitabilityColors: { [key: string]: any } = {
-  //   4: { fillColor: "#10a063", color: "#fff" },
-  //   3: { fillColor: "#ffcd42", color: "#fff" },
-  //   2: { fillColor: "#e99b5C", color: "#fff" },
-  //   1: { fillColor: "#ce5050", color: "#fff" },
-  //   null: { fillColor: "#6f6f6f", color: "#fff" },
-  // };
-
-  function landColor(index: any) {
-    if (index == 4) {
-      return { fillColor: "#10a063", color: "#fff" };
-    } else if (index == 3) {
-      return { fillColor: "#ffcd42", color: "#fff" };
-    } else if (index == 2) {
-      return { fillColor: "#e99b5C", color: "#fff" };
-    } else if (index == 1) {
-      return { fillColor: "#ce5050", color: "#fff" };
-    } else return { fillColor: "#6f6f6f", color: "#fff" };
-  }
 
   return (
     <div>
@@ -95,13 +73,15 @@ export default function Index() {
                     fillColor: "#000000",
                     color: "#000000",
                   };
-
+                  console.log(landSuitabilityClass)
                   // const { fillColor, color } = landSuitabilityColors[
                   //   landSuitabilityClass
                   // ] || {
                   //   fillColor: "#000000",
                   //   color: "#000000",
                   // };
+
+
 
                   return (
                     <Polygon

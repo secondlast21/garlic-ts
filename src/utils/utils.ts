@@ -49,6 +49,18 @@ export function setResultFactor(input: number) {
   } else return "card w-96 bg-[#6f6f6f] shadow-xl mx-1 text-white";
 }
 
+export function landColor(input: number) {
+  if (input <= 4 && input > 3.5) {
+    return { fillColor: "#10a063", color: "#fff" };
+  } else if (input <= 3.5 && input > 2.5) {
+    return { fillColor: "#ffcd42", color: "#fff" };
+  } else if (input <= 2.5 && input > 1.5) {
+    return { fillColor: "#e99b5C", color: "#fff" };
+  } else if (input <= 1.5 && input >= 1) {
+    return { fillColor: "#ce5050", color: "#fff" };
+  } else return { fillColor: "#6f6f6f", color: "#fff" };
+}
+
 export function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -74,3 +86,5 @@ export function capitalizeEveryWord(str: string): string {
   );
   return capitalizedWords.join(" ");
 }
+
+
