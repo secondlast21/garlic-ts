@@ -13,8 +13,8 @@ npm run dev
 
 ## Deploy to Docker
 ```
-sudo docker build -t inaagro/garlic-fe
-sudo docker login
-sudo docker push inaagro/garlic-fe:latest
+docker build -t inaagro/garlic-fe .
+docker login
+docker push inaagro/garlic-fe:latest
 ```
 Open https://panel.ina-agro.apps.cs.ipb.ac.id/ and login, then open garlic-fe container.  Stop the container, then recreate the container.  After that, restart the container.
