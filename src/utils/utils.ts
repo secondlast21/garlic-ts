@@ -38,14 +38,14 @@ export function setResultTitle(input: number) {
 
 export function setResultFactor(input: number) {
   if (input <= 4 && input > 3.5) {
-    return 'card w-96 bg-s1 shadow-xl mx-1 text-white'
+    return 'card w-auto bg-s1 shadow-xl mx-1 text-white'
   } else if (input <= 3.5 && input > 2.5) {
-    return 'card w-96 bg-s2 shadow-xl mx-1 text-white'
+    return 'card w-auto bg-s2 shadow-xl mx-1 text-white'
   } else if (input <= 2.5 && input > 1.5) {
-    return 'card w-96 bg-s3 shadow-xl mx-1 text-white'
+    return 'card w-auto bg-s1 shadow-xl mx-1 text-white'
   } else if (input <= 1.5 && input >= 1) {
-    return 'card w-96 bg-n shadow-xl mx-1 text-white'
-  } else return 'card w-96 bg-[#6f6f6f] shadow-xl mx-1 text-white'
+    return 'card w-auto bg-n shadow-xl mx-1 text-white'
+  } else return 'card w-auto bg-[#6f6f6f] shadow-xl mx-1 text-white'
 }
 
 export function landColor(input: number) {
